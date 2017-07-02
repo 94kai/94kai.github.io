@@ -1,0 +1,757 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,自定义View," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
+<meta name="keywords" content="Android,自定义View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动手撸一个折线图">
+<meta property="og:url" content="http://yoursite.com/2016/12/09/动手撸一个折线图/index.html">
+<meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
+<meta property="og:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p1.png">
+<meta property="og:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p2.png">
+<meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p3.png">
+<meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p4.png">
+<meta property="og:updated_time" content="2017-07-02T23:44:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动手撸一个折线图">
+<meta name="twitter:description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
+<meta name="twitter:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/09/动手撸一个折线图/"/>
+
+
+
+
+
+  <title>动手撸一个折线图 | X.Sation's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">X.Sation's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/09/动手撸一个折线图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">动手撸一个折线图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-09T14:41:00+08:00">
+                2016-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/view/" itemprop="url" rel="index">
+                    <span itemprop="name">view</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以前觉得用<a href="http://lib.csdn.net/base/android" target="_blank" rel="external">安卓</a>画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。</p>
+<p>进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图</p>
+<p>图一<br><img src="../pic/zhexiantu_p1.png" alt=""></p>
+<p>图二<br><img src="../pic/zhexiantu_p2.png" alt=""><br>如果我告诉你这两个图的实现思路是一样的，而且都很容易，你会不会很震惊。<br>其实是第二种图中“今天”那一项数据给提供了思路，没错，recyclerview。<br>拿第一张图片来分析<br><img src="/pic/zhexiantu_p3.png" alt="zhexiantu_p3"></p>
+<p>黑色部分框起来的就当做一个item，首先我们要把所有数据中的最大值和最小值取出来，如红线画住的部分，然后确定一个区间（y坐标），表示我们所有的点都要在这个区间内显示。图中当值为176表示最大，在第一个红线那个高度，44表示最小，在第二条直线那个高度，这两个高度是我们指定的，那么70这个值对应的高度很明显就可以计算出来，103的高度也可以计算出来，70和103的中间值，也就是图中第一个红圈圈住的地方的高度也可以确定出来，同理，第三个小圆圈也知道了，然后第一个小圆圈和第二个连线，第二个和第三个连线，这就画好了一个item的折线。多个item连接起来就是上面的效果。</p>
+<p>第二张图思路也是一样的，只不过在一个item上画了两个折线，如图中黑线框住的区域<br><img src="/pic/zhexiantu_p4.png" alt="zhexiantu_p4"><br>思路就是这样，是不是很简单了，当然前提要掌握view的绘制，因为每一个item都是继承自view，然后绘制的。</p>
+<p>上代码,总共就三个java文件，也不用布局文件，直接导进去就可以看效果。记得依赖recyclerview的库哦。代码注释也写得比较清楚，主要代码就是那个item</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div></pre></td><td class="code"><pre><div class="line">item的代码</div><div class="line"></div><div class="line">package com.xk.linedemo;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.graphics.Canvas;</div><div class="line">import android.graphics.Color;</div><div class="line">import android.graphics.Paint;</div><div class="line">import android.util.Log;</div><div class="line">import android.view.View;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by xuekai on 2016/11/10.</div><div class="line"> */</div><div class="line"></div><div class="line">public class Item extends View &#123;</div><div class="line">    private int maxValue;//最高值</div><div class="line">    private int minValue;//最低值</div><div class="line">    private int currentValue = 15;//当前值</div><div class="line">    private int lastValue = 10;//上一个值</div><div class="line">    private int nextValue = 10;//下一个值</div><div class="line">    private Paint mPaint;</div><div class="line">    private int viewHeight;</div><div class="line">    private int viewWidth;</div><div class="line">    private int pointTopY = 130;//最高点的Y坐标 130</div><div class="line">    private int pointBottomY = 255;//最低点的Y坐标 255</div><div class="line">    private int pointX;//所有点的x坐标</div><div class="line">    private int pointY;//当前点的Y</div><div class="line"></div><div class="line">    private boolean drawLeftLine = true;//是否画左边的线</div><div class="line">    private boolean drawRightLine = true;//是否画右边的线</div><div class="line"></div><div class="line">    public Item(Context context) &#123;</div><div class="line">        super(context);</div><div class="line">        init();</div><div class="line">        setBackgroundColor(0xffffffff);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setCurrentValue(int currentValue) &#123;</div><div class="line">        this.currentValue = currentValue;</div><div class="line">        invalidate();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMaxValue(int maxValue) &#123;</div><div class="line">        this.maxValue = maxValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMinValue(int minValue) &#123;</div><div class="line">        this.minValue = minValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void init() &#123;</div><div class="line">        mPaint = new Paint();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</div><div class="line">        super.onMeasure(widthMeasureSpec, heightMeasureSpec);</div><div class="line">        initValues();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void initValues() &#123;</div><div class="line">        viewHeight = getMeasuredHeight();</div><div class="line">        viewWidth = getMeasuredWidth();</div><div class="line">        pointX = viewWidth / 2;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void draw(Canvas canvas) &#123;</div><div class="line">        super.draw(canvas);</div><div class="line">        pointY = (int) ((pointBottomY - pointTopY) * 1f / (maxValue - minValue) * (maxValue - currentValue + minValue) + pointTopY);</div><div class="line"></div><div class="line">        drawLine(canvas);</div><div class="line">        drawGraph(canvas);</div><div class="line">        drawPoint(canvas);</div><div class="line">        drawValue(canvas);</div><div class="line"></div><div class="line">        Log.e(&quot;Item&quot;, &quot;&quot; + lastValue + &quot; &quot; + currentValue + &quot; &quot; + nextValue);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 画数字</div><div class="line">     *</div><div class="line">     * @param canvas</div><div class="line">     */</div><div class="line">    private void drawValue(Canvas canvas) &#123;</div><div class="line">        mPaint.setTextSize(20);</div><div class="line">        mPaint.setColor(Color.parseColor(&quot;#ff333333&quot;));</div><div class="line">        mPaint.setStrokeWidth(0);</div><div class="line">        mPaint.setStyle(Paint.Style.FILL);</div><div class="line">        mPaint.setTextAlign(Paint.Align.CENTER);</div><div class="line">        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();</div><div class="line">        float baseLine1 = pointY - fontMetrics.bottom * 4;</div><div class="line">        canvas.drawText(currentValue + &quot;&quot;, viewWidth / 2, baseLine1, mPaint);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setlastValue(int lastValue) &#123;</div><div class="line">        this.lastValue = lastValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setNextValue(int nextValue) &#123;</div><div class="line">        this.nextValue = nextValue;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 画折线</div><div class="line">     *</div><div class="line">     * @param canvas</div><div class="line">     */</div><div class="line">    private void drawGraph(Canvas canvas) &#123;</div><div class="line"></div><div class="line">        mPaint.setPathEffect(null);</div><div class="line"></div><div class="line">        mPaint.setStyle(Paint.Style.FILL);</div><div class="line">        mPaint.setColor(0xff24C3F1);</div><div class="line">        mPaint.setStrokeWidth(3);</div><div class="line">        mPaint.setAntiAlias(true);</div><div class="line">        if (drawLeftLine) &#123;</div><div class="line">            float middleValue = currentValue - (currentValue - lastValue) / 2f;</div><div class="line">            float middleY = ((pointBottomY - pointTopY) * 1f / (maxValue - minValue) * (maxValue - middleValue + minValue) + pointTopY);</div><div class="line">            canvas.drawLine(0, middleY, pointX, pointY, mPaint);</div><div class="line">        &#125;</div><div class="line">        if (drawRightLine) &#123;</div><div class="line">            float middleValue = currentValue - (currentValue - nextValue) / 2f;</div><div class="line">            float middleY = ((pointBottomY - pointTopY) * 1f / (maxValue - minValue) * (maxValue - middleValue + minValue) + pointTopY);</div><div class="line">            canvas.drawLine(pointX, pointY, viewWidth, middleY, mPaint);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 画数字下面的小圆圈</div><div class="line">     *</div><div class="line">     * @param canvas</div><div class="line">     */</div><div class="line">    private void drawPoint(Canvas canvas) &#123;</div><div class="line">        mPaint.setColor(0xffffffff);</div><div class="line">        mPaint.setPathEffect(null);</div><div class="line"></div><div class="line">        mPaint.setStrokeWidth(2);</div><div class="line">        mPaint.setStyle(Paint.Style.FILL);</div><div class="line">        canvas.drawCircle(pointX, pointY, 10, mPaint);</div><div class="line">        mPaint.setColor(0xff24C3F1);</div><div class="line">        mPaint.setStrokeWidth(2);</div><div class="line">        mPaint.setStyle(Paint.Style.STROKE);</div><div class="line">        canvas.drawCircle(pointX, pointY, 5, mPaint);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 画最下面的一条线</div><div class="line">     *</div><div class="line">     * @param canvas</div><div class="line">     */</div><div class="line">    private void drawLine(Canvas canvas) &#123;</div><div class="line">        mPaint.setColor(0xffD3D3D3);</div><div class="line">        mPaint.setPathEffect(null);</div><div class="line"></div><div class="line">        mPaint.setStrokeWidth(2);</div><div class="line">        mPaint.setStyle(Paint.Style.FILL);</div><div class="line">        if (drawLeftLine) &#123;</div><div class="line">            canvas.drawLine(0, 500, viewWidth / 2, 500, mPaint);//这两个值表示下面那条横线的Y坐标（第二四个参数）</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        if (drawRightLine) &#123;</div><div class="line">            canvas.drawLine(viewWidth / 2, 500, viewWidth, 500, mPaint);//这两个值表示下面那条横线的Y坐标（第二四个参数）</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setDrawLeftLine(boolean drawLeftLine) &#123;</div><div class="line">        this.drawLeftLine = drawLeftLine;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setDrawRightLine(boolean drawRightLine) &#123;</div><div class="line">        this.drawRightLine = drawRightLine;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line">折线view的代码</div><div class="line">package com.xk.linedemo;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.support.v7.widget.LinearLayoutManager;</div><div class="line">import android.support.v7.widget.RecyclerView;</div><div class="line">import android.view.View;</div><div class="line">import android.view.ViewGroup;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.Collections;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by xk on 2016/11/9 22:14.</div><div class="line"> */</div><div class="line"></div><div class="line">public class BrokenLineView extends RecyclerView &#123;</div><div class="line"></div><div class="line">    private int maxValue;</div><div class="line">    private int minValue;</div><div class="line">    private List&lt;Integer&gt; data = new ArrayList&lt;&gt;();</div><div class="line">    private Adapter adapter;</div><div class="line"></div><div class="line">    public BrokenLineView(Context context) &#123;</div><div class="line">        super(context);</div><div class="line">        init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    private void init() &#123;</div><div class="line">        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));</div><div class="line">        adapter = new Adapter();</div><div class="line">        setAdapter(adapter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setData(List&lt;Integer&gt; d) &#123;</div><div class="line">        if (data != null) &#123;</div><div class="line">            data.clear();</div><div class="line">            data.addAll(d);</div><div class="line">            Collections.sort(d);</div><div class="line">            minValue = d.get(0);</div><div class="line">            maxValue = d.get(d.size() - 1);</div><div class="line">            adapter.notifyDataSetChanged();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    class Adapter extends RecyclerView.Adapter&lt;Adapter.ViewHolder&gt; &#123;</div><div class="line"></div><div class="line"></div><div class="line">        @Override</div><div class="line">        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</div><div class="line">            Item item = new Item(getContext());</div><div class="line">            item.setMinValue(minValue);</div><div class="line">            item.setMaxValue(maxValue);</div><div class="line">            LayoutParams layoutParams = new LayoutParams(200, ViewGroup.LayoutParams.MATCH_PARENT);//这个数字表示每一个item的宽度</div><div class="line">            item.setLayoutParams(layoutParams);</div><div class="line">            return new ViewHolder(item);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onBindViewHolder(ViewHolder holder, int position) &#123;</div><div class="line">            if (position == 0) &#123;</div><div class="line">                holder.item.setDrawLeftLine(false);</div><div class="line">            &#125; else &#123;</div><div class="line">                holder.item.setDrawLeftLine(true);</div><div class="line">                holder.item.setlastValue((data.get(position - 1)));</div><div class="line">            &#125;</div><div class="line">            holder.item.setCurrentValue((data.get(position)));</div><div class="line"></div><div class="line"></div><div class="line">            if (position == data.size() - 1) &#123;</div><div class="line">                holder.item.setDrawRightLine(false);</div><div class="line">            &#125; else &#123;</div><div class="line">                holder.item.setDrawRightLine(true);</div><div class="line">                holder.item.setNextValue((data.get(position + 1)));</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int getItemCount() &#123;</div><div class="line">            return data.size();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        class ViewHolder extends RecyclerView.ViewHolder &#123;</div><div class="line">            Item item;</div><div class="line">            public ViewHolder(View itemView) &#123;</div><div class="line">                super(itemView);</div><div class="line">                this.item = (Item) itemView;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">MainActivity的代码</div><div class="line">package com.xk.linedemo;</div><div class="line"></div><div class="line">import android.support.v7.app.AppCompatActivity;</div><div class="line">import android.os.Bundle;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line"></div><div class="line">public class MainActivity extends AppCompatActivity &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line"></div><div class="line">        BrokenLineView brokenLineView = new BrokenLineView(this);</div><div class="line">        ArrayList&lt;Integer&gt; integers = new ArrayList&lt;&gt;();</div><div class="line">        integers.add(2);</div><div class="line">        integers.add(12);</div><div class="line">        integers.add(21);</div><div class="line">        integers.add(4);</div><div class="line">        integers.add(7);</div><div class="line">        integers.add(18);</div><div class="line">        integers.add(30);</div><div class="line">        brokenLineView.setData(integers);</div><div class="line">        setContentView(brokenLineView);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/自定义View/" rel="tag"># 自定义View</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/28/View的测量/" rel="next" title="View的测量">
+                <i class="fa fa-chevron-left"></i> View的测量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/13/Android调用系统相机拍照 返回数据为空/" rel="prev" title="Android调用系统相机拍照 返回数据为空">
+                Android调用系统相机拍照 返回数据为空 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/favicon.ico"
+               alt="X.Sation" />
+          <p class="site-author-name" itemprop="name">X.Sation</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kaikaixue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3179322384/info" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X.Sation</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
