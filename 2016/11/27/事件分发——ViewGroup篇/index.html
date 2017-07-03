@@ -1,0 +1,756 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="郭神的博客 代码都是只考虑了最简单的情况，最简单的情况有利于搞懂机制 12345678910public boolean dispatchTouchEvent(MotionEvent ev)&amp;#123;    boolean consume = false;    if(onInterceptTouchEvent(ev))&amp;#123;        consume = onTouchEvent(e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件分发——ViewGroup篇">
+<meta property="og:url" content="http://yoursite.com/2016/11/27/事件分发——ViewGroup篇/index.html">
+<meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="郭神的博客 代码都是只考虑了最简单的情况，最简单的情况有利于搞懂机制 12345678910public boolean dispatchTouchEvent(MotionEvent ev)&amp;#123;    boolean consume = false;    if(onInterceptTouchEvent(ev))&amp;#123;        consume = onTouchEvent(e">
+<meta property="og:updated_time" content="2017-07-03T01:43:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件分发——ViewGroup篇">
+<meta name="twitter:description" content="郭神的博客 代码都是只考虑了最简单的情况，最简单的情况有利于搞懂机制 12345678910public boolean dispatchTouchEvent(MotionEvent ev)&amp;#123;    boolean consume = false;    if(onInterceptTouchEvent(ev))&amp;#123;        consume = onTouchEvent(e">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/27/事件分发——ViewGroup篇/"/>
+
+
+
+
+
+  <title>事件分发——ViewGroup篇 | X.Sation's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">X.Sation's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            目录
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/27/事件分发——ViewGroup篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">事件分发——ViewGroup篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-27T13:02:00+08:00">
+                2016-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/view/" itemprop="url" rel="index">
+                    <span itemprop="name">view</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://blog.csdn.net/sinyu890807/article/details/9153747" target="_blank" rel="external">郭神的博客</a></p>
+<p>代码都是只考虑了最简单的情况，最简单的情况有利于搞懂机制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean dispatchTouchEvent(MotionEvent ev)&#123;</div><div class="line"></div><div class="line">    boolean consume = false;</div><div class="line">    if(onInterceptTouchEvent(ev))&#123;</div><div class="line">        consume = onTouchEvent(ev);</div><div class="line">    &#125;else&#123;</div><div class="line">        consume = child.dispatchTouchEvent(ev);</div><div class="line">    &#125;</div><div class="line">    return consume;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我用的是Android 24的源码，与郭神的有一点出入，大概看看就好</p>
+<p><strong>结合ViewGroup分析。首先需要上篇的分析（事件分发学习笔记（View篇））</strong></p>
+<h2 id="1-ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。"><a href="#1-ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。" class="headerlink" title="**1.ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。"></a><em>**</em>1.ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public boolean onInterceptTouchEvent(MotionEvent ev) &#123;  </div><div class="line">    return false;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。"><a href="#2-ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。" class="headerlink" title="2.ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。"></a>2.ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public boolean dispatchTouchEvent(MotionEvent ev) &#123;  </div><div class="line">    //...</div><div class="line">        if (disallowIntercept || !onInterceptTouchEvent(ev)) &#123;//第一个默认是false，可以调用requestDisallowIntercept来改变它，但是我们不考虑，直接看第二个。也就是如果onInterceptTouchEvent返回了false，也就是不拦截touch事件，就会进入下面的内容。拦截了就不会进入。所以可以猜想，他的事件是从这里传递到他的孩子的。</div><div class="line">            ev.setAction(MotionEvent.ACTION_DOWN);  </div><div class="line">            final int scrolledXInt = (int) scrolledXFloat;  </div><div class="line">            final int scrolledYInt = (int) scrolledYFloat;  </div><div class="line">            final View[] children = mChildren;  </div><div class="line">            final int count = mChildrenCount;  </div><div class="line">            for (int i = count - 1; i &gt;= 0; i--) &#123;//从这里可以看出，他就是要遍历自己的孩子</div><div class="line">                final View child = children[i];  </div><div class="line">                if ((child.mViewFlags &amp; VISIBILITY_MASK) == VISIBLE  </div><div class="line">                        || child.getAnimation() != null) &#123; </div><div class="line">                    child.getHitRect(frame);  </div><div class="line">                    if (frame.contains(scrolledXInt, scrolledYInt)) &#123; //这里是判断，这个孩子是否在touch发生的区域内（比如触摸一个地方，看这个孩子是否被触摸到） </div><div class="line">                        final float xc = scrolledXFloat - child.mLeft;  </div><div class="line">                        final float yc = scrolledYFloat - child.mTop;  </div><div class="line">                        ev.setLocation(xc, yc);  </div><div class="line">                        child.mPrivateFlags &amp;= ~CANCEL_NEXT_UP_EVENT;  </div><div class="line">                        if (child.dispatchTouchEvent(ev))  &#123;//在这里，就会调用孩子的dispatchTouchEvent方法，这就跟上一篇博客里讲的一样了。如果返回false，说明这个孩子不处理，继续循环下一个孩子，直到有一个孩子返回了true，表明他处理了事件，也就结束了，如果全部没有返回true，就继续往下走。  </div><div class="line">                            mMotionTarget = child;  </div><div class="line">                            return true;  </div><div class="line">                        &#125;  </div><div class="line">                    &#125;  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    boolean isUpOrCancel = (action == MotionEvent.ACTION_UP) ||  </div><div class="line">            (action == MotionEvent.ACTION_CANCEL);  </div><div class="line">    if (isUpOrCancel) &#123;  </div><div class="line">        mGroupFlags &amp;= ~FLAG_DISALLOW_INTERCEPT;  </div><div class="line">    &#125;  </div><div class="line">    final View target = mMotionTarget;  </div><div class="line">    if (target == null) &#123;  //上面的孩子如果全部没有处理事件，那么ViewGroup的dispatchTouchEvent（该方法）就会执行到这里，target也是空的，所以就会进入这个判断，最后执行他父类的dispatchTouchEvent方法，也就是View#dispatchTouchEvent,就跟上一篇一样了，看看该控件是否会消费，如果消费，就返回true，然后返回给他的调用者，一级一级往回返，直到activity中，就结束了。不消费，那么dispatchTouchEvent返回false，给了他的调用者，也就是他的父容器，再看他的父容器的父类View是否会消费，直到activity。（举个列子：可滑动的一个容器，他是可以消费事件的，他包含了一个子控件。如果子控件可以消费事件会有两种情况：1.父容器拦截事件，那么子控件是获取不到的。2.如果父容器不拦截，那么子控件就消费了。   如果子控件不消费事件，还有两种情况：1.父容器拦截，那么就直接消费了。2.父容器不拦截，会询问子控件，子控件不消费，又回给父容器，父容器消费掉。  当然，如果父容器不消费，那就继续给父容器的父容器，直到给了activity。）</div><div class="line"> </div><div class="line">        ev.setLocation(xf, yf);  </div><div class="line">        if ((mPrivateFlags &amp; CANCEL_NEXT_UP_EVENT) != 0) &#123;  </div><div class="line">            ev.setAction(MotionEvent.ACTION_CANCEL);  </div><div class="line">            mPrivateFlags &amp;= ~CANCEL_NEXT_UP_EVENT;  </div><div class="line">        &#125;  </div><div class="line">        return super.dispatchTouchEvent(ev);  </div><div class="line">    &#125;  </div><div class="line">   //...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/25/事件分发——View篇/" rel="next" title="事件分发——View篇">
+                <i class="fa fa-chevron-left"></i> 事件分发——View篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/28/View的测量/" rel="prev" title="View的测量">
+                View的测量 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/favicon.ico"
+               alt="X.Sation" />
+          <p class="site-author-name" itemprop="name">X.Sation</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kaikaixue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3179322384/info" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。"><span class="nav-number">1.</span> <span class="nav-text">**1.ViewGroup中有一个方法onInterceptTouchEvent，他默认返回false。返回结果表示是否拦截事件。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。"><span class="nav-number">2.</span> <span class="nav-text">2.ViewGroup是View的子类，所以他的dispatchTouchEvent方法也是会首先被调用的（如上一篇中分析的一样），当一个触摸事件发生的时候，首先会调用ViewGroup的这个方法。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X.Sation</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
