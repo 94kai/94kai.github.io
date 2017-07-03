@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="DroidPlugin," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -93,17 +93,16 @@
 
 
 
-<meta name="description" content="参考资料 :[Android插件化原理解析——Hook机制之Binder Hook][http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/]阅读前先掌握[Binder学习指南][http://weishu.me/2016/01/12/binder-index-for-newer/]  什么是Binder Hook">
-<meta name="keywords" content="DroidPlugin">
+<meta name="description" content="参考资料 :Android插件化原理解析——Hook机制之Binder Hook阅读前先掌握Binder学习指南  什么是Binder Hookhook系统服务就叫Binder Hook,因为Linux的特性决定了，各个进程间不能直接通讯，系统服务提供了进程间通讯的可能，那么系统服务一定是存在于各个进程（用户）中的Binder，所以hook系统服务就叫Binder Hook 如何获取一个系统服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hook机制之Binder Hook">
 <meta property="og:url" content="http://yoursite.com/2017/04/15/Hook机制之Binder Hook/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="参考资料 :[Android插件化原理解析——Hook机制之Binder Hook][http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/]阅读前先掌握[Binder学习指南][http://weishu.me/2016/01/12/binder-index-for-newer/]  什么是Binder Hook">
-<meta property="og:updated_time" content="2017-07-02T15:11:31.000Z">
+<meta property="og:description" content="参考资料 :Android插件化原理解析——Hook机制之Binder Hook阅读前先掌握Binder学习指南  什么是Binder Hookhook系统服务就叫Binder Hook,因为Linux的特性决定了，各个进程间不能直接通讯，系统服务提供了进程间通讯的可能，那么系统服务一定是存在于各个进程（用户）中的Binder，所以hook系统服务就叫Binder Hook 如何获取一个系统服务">
+<meta property="og:updated_time" content="2017-07-03T00:26:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hook机制之Binder Hook">
-<meta name="twitter:description" content="参考资料 :[Android插件化原理解析——Hook机制之Binder Hook][http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/]阅读前先掌握[Binder学习指南][http://weishu.me/2016/01/12/binder-index-for-newer/]  什么是Binder Hook">
+<meta name="twitter:description" content="参考资料 :Android插件化原理解析——Hook机制之Binder Hook阅读前先掌握Binder学习指南  什么是Binder Hookhook系统服务就叫Binder Hook,因为Linux的特性决定了，各个进程间不能直接通讯，系统服务提供了进程间通讯的可能，那么系统服务一定是存在于各个进程（用户）中的Binder，所以hook系统服务就叫Binder Hook 如何获取一个系统服务">
 
 
 
@@ -223,7 +222,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            目录
           </a>
         </li>
       
@@ -358,7 +357,7 @@
 
       
         <blockquote>
-<p>参考资料 :[Android插件化原理解析——Hook机制之Binder Hook][<a href="http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/" target="_blank" rel="external">http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/</a>]<br>阅读前先掌握[Binder学习指南][<a href="http://weishu.me/2016/01/12/binder-index-for-newer/" target="_blank" rel="external">http://weishu.me/2016/01/12/binder-index-for-newer/</a>]</p>
+<p>参考资料 :<a href="http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/" target="_blank" rel="external">Android插件化原理解析——Hook机制之Binder Hook</a><br>阅读前先掌握<a href="http://weishu.me/2016/01/12/binder-index-for-newer/" target="_blank" rel="external">Binder学习指南</a></p>
 </blockquote>
 <h2 id="什么是Binder-Hook"><a href="#什么是Binder-Hook" class="headerlink" title="什么是Binder Hook"></a>什么是Binder Hook</h2><p>hook系统服务就叫<code>Binder Hook</code>,因为Linux的特性决定了，各个进程间不能直接通讯，系统服务提供了进程间通讯的可能，那么系统服务一定是存在于各个进程（用户）中的Binder，所以hook系统服务就叫<code>Binder Hook</code></p>
 <h2 id="如何获取一个系统服务"><a href="#如何获取一个系统服务" class="headerlink" title="如何获取一个系统服务"></a>如何获取一个系统服务</h2><p>想要hook系统服务，肯定要知道他是怎么来的，那么就开始看源码</p>
@@ -368,7 +367,7 @@
 <p>在<code>SystemServiceRegistry</code>中，从一个集合<code>SYSTEM_SERVICE_FETCHERS</code>中获取服务，这个集合是在<code>SystemServiceRegistry</code>的静态代码块中初始化的，只看两个比较典型的<code>ACTIVITY_SERVICE</code>和 <code>ACCOUNT_SERVICE</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> registerService(Context.ACCOUNT_SERVICE, AccountManager.class,</div><div class="line">                new CachedServiceFetcher&lt;AccountManager&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public AccountManager createService(ContextImpl ctx) &#123;</div><div class="line">                IBinder b = ServiceManager.getService(Context.ACCOUNT_SERVICE);</div><div class="line">                IAccountManager service = IAccountManager.Stub.asInterface(b);</div><div class="line">                return new AccountManager(ctx, service);</div><div class="line">            &#125;&#125;);</div><div class="line"></div><div class="line">registerService(Context.ACTIVITY_SERVICE, ActivityManager.class,</div><div class="line">                new CachedServiceFetcher&lt;ActivityManager&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public ActivityManager createService(ContextImpl ctx) &#123;</div><div class="line">                return new ActivityManager(ctx.getOuterContext(), ctx.mMainThread.getHandler());</div><div class="line">            &#125;&#125;);</div></pre></td></tr></table></figure>
 <ul>
-<li>先分析<code>AccountManager</code>,它通过<code>ServiceManager</code>拿到了一个IBinder,然后将其转换成了<code>IInterface</code>(看不懂先看Weishu大神的[Binder学习指南][<a href="http://weishu.me/2016/01/12/binder-index-for-newer/]的文章),IInterface决定了它可以做什么,于是就创建了`AccountManager`" target="_blank" rel="external">http://weishu.me/2016/01/12/binder-index-for-newer/]的文章),IInterface决定了它可以做什么,于是就创建了`AccountManager`</a></li>
+<li>先分析<code>AccountManager</code>,它通过<code>ServiceManager</code>拿到了一个IBinder,然后将其转换成了<code>IInterface</code>(看不懂先看Weishu大神的<a href="http://weishu.me/2016/01/12/binder-index-for-newer/" target="_blank" rel="external">Binder学习指南</a>),IInterface决定了它可以做什么,于是就创建了<code>AccountManager</code></li>
 <li>再分析ActivityManager,可以看到,他并没有调用<code>ServiceManager</code>,其实不然,前面的<code>AccountManager</code>直接就可以看到,它是从<code>ServiceManager</code>中获取的,那么为什么<code>AccountManager</code>不直接从<code>ServiceManager</code>获取呢,是因为<code>ActivityManager</code>的实现其实都是由<code>ActivityManagerNative.getDefault()</code>去完成的,通过此方法获得一个<code>IInterface</code>,那么就看这个<code>ActivityManagerNative.getDefault()</code>是怎么做的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">private static final Singleton&lt;IActivityManager&gt; gDefault = new Singleton&lt;IActivityManager&gt;() &#123;</div><div class="line">        protected IActivityManager create() &#123;</div><div class="line">            IBinder b = ServiceManager.getService(&quot;activity&quot;);</div><div class="line">            if (false) &#123;</div><div class="line">                Log.v(&quot;ActivityManager&quot;, &quot;default service binder = &quot; + b);</div><div class="line">            &#125;</div><div class="line">            IActivityManager am = asInterface(b);</div><div class="line">            if (false) &#123;</div><div class="line">                Log.v(&quot;ActivityManager&quot;, &quot;default service = &quot; + am);</div><div class="line">            &#125;</div><div class="line">            return am;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -378,7 +377,7 @@
 <p>首先从本地查找,如果有就直接return,否则创建一个<code>Proxy</code>(这个<code>Proxy</code>是本地service)</p>
 <p>那么我们就让这个<code>android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);</code>作为hook点,只要这我们返回一个<code>IInterface</code>,并且让他满足下面的判断,就达到我们的目的了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (((iin != null) &amp;&amp; (iin instanceof com.xk.aidl.IComputer))) &#123;</div><div class="line">                return ((com.xk.aidl.IComputer) iin);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>所以此时,我们需要拿到上面的这个<code>obj</code>,并且hook它,改造它,<code>obj</code>就是<code>IBinder</code>,可以通过<code>IBinder iBinder = ServiceManager.getService(&quot;SERVICE_NAME&quot;);</code>拿到,所以这里只需要修改<code>getService</code>的返回值即可.(注意,这里的IBinder也仅仅是存在于用户进程中的代理<code>BinderProxy</code>)</p>
-<p><code>getService(&quot;SERVICE_NAME&quot;)</code>是一个静态方法,如果它仅仅是获取service,那我们是没法搞的,因为我们没法拦截一个静态方法([Android插件化原理解析——Hook机制之动态代理][<a href="http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/]中提到,hook最好选择一个静态变量或者单例),那么我们看看具体实现(`ServiceManager`是一个隐藏类,所以从[这里][http://www.grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/os/ServiceManager.java#ServiceManager]去看" target="_blank" rel="external">http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/]中提到,hook最好选择一个静态变量或者单例),那么我们看看具体实现(`ServiceManager`是一个隐藏类,所以从[这里][http://www.grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/os/ServiceManager.java#ServiceManager]去看</a>)</p>
+<p><code>getService(&quot;SERVICE_NAME&quot;)</code>是一个静态方法,如果它仅仅是获取service,那我们是没法搞的,因为我们没法拦截一个静态方法(<a href="http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/" target="_blank" rel="external">Android插件化原理解析——Hook机制之动态代理</a>中提到,hook最好选择一个静态变量或者单例),那么我们看看具体实现(<code>ServiceManager</code>是一个隐藏类,所以从<a href="http://www.grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.1.1_r1/android/os/ServiceManager.java#ServiceManager" target="_blank" rel="external">这里</a>去看)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static IBinder getService(String name) &#123;</div><div class="line">         try &#123;</div><div class="line">             IBinder service = sCache.get(name);</div><div class="line">             if (service != null) &#123;</div><div class="line">                 return service;</div><div class="line">             &#125; else &#123;</div><div class="line">                 return getIServiceManager().getService(name);</div><div class="line">             &#125;</div><div class="line">         &#125; catch (RemoteException e) &#123;</div><div class="line">             Log.e(TAG, &quot;error in getService&quot;, e);</div><div class="line">         &#125;</div><div class="line">         return null;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
 <p>它会先从缓存中拿,所以我们只需要修改缓存中的数据就好了(由于取<code>IBinder</code>对象,准确的说是<code>BinderProxy</code>,需要跨进程访问,为了减少跨进程次数,使用了缓存机制)</p>
 <hr>
@@ -387,8 +386,6 @@
 <h2 id="hook系统能够剪切板服务"><a href="#hook系统能够剪切板服务" class="headerlink" title="hook系统能够剪切板服务"></a>hook系统能够剪切板服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//通过反射，拿到ServiceManager</div><div class="line">Class&lt;?&gt; serviceManagerClass = Class.forName(&quot;android.os.ServiceManager&quot;);</div><div class="line">Method getService = serviceManagerClass.getDeclaredMethod(&quot;getService&quot;, String.class);</div><div class="line">getService.setAccessible(true);</div><div class="line">//这个iBinder是hook之前的binder对象</div><div class="line">IBinder iBinder = (IBinder) getService.invoke(null, Context.CLIPBOARD_SERVICE);</div><div class="line">//hook IBinder，使他的queryLocalInterface的返回值始终存在，并且在asInterface中直接返回，而不是让系统去new一个代理，这样，返回的内容就可以由我们决定了</div><div class="line">IBinder hookIBinder = hookIBinder(iBinder);</div><div class="line"></div><div class="line">//把hookIBinder存入到sCache中，这样serviceManager可以直接取到这个修改过IBinder，而不是从远程获取</div><div class="line">Field sCache = serviceManagerClass.getDeclaredField(&quot;sCache&quot;);</div><div class="line">sCache.setAccessible(true);</div><div class="line">HashMap sCacheSource = (HashMap) sCache.get(null);</div><div class="line">sCacheSource.put(Context.CLIPBOARD_SERVICE, hookIBinder);</div><div class="line">sCache.set(null, sCacheSource);</div></pre></td></tr></table></figure>
 <p>hook IBinder的handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">//修改queryLocalInterface的返回值</div><div class="line">class IBinderInvocationHandler implements InvocationHandler &#123;</div><div class="line">    private static final String TAG = &quot;IBinderInvocationHandle&quot;;</div><div class="line">    IBinder base;</div><div class="line">    private  Class&lt;?&gt; stubClass=null;</div><div class="line">    private  Class&lt;?&gt; iClipboardClass=null;</div><div class="line">    private  Object iClipboard;</div><div class="line"></div><div class="line">    public IBinderInvocationHandler(IBinder iBinder) &#123;</div><div class="line">        this.base = iBinder;</div><div class="line">        try &#123;</div><div class="line"></div><div class="line">            stubClass = Class.forName(&quot;android.content.IClipboard$Stub&quot;);</div><div class="line"></div><div class="line">            Method asInterface = stubClass.getDeclaredMethod(&quot;asInterface&quot;, IBinder.class);</div><div class="line"></div><div class="line">            iClipboard = asInterface.invoke(null, iBinder);</div><div class="line">            iClipboardClass = Class.forName(&quot;android.content.IClipboard&quot;);</div><div class="line">        &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; catch (NoSuchMethodException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; catch (InvocationTargetException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; catch (IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public Object invoke(Object o, Method method, Object[] objects) throws Throwable &#123;</div><div class="line">        if (method.getName().equals(&quot;queryLocalInterface&quot;)) &#123;</div><div class="line">            //这里应该返回一个android.os.IInterface,并且满足 if (((iin != null) &amp;&amp; (iin instanceof android.content.IClipboard)))</div><div class="line">//</div><div class="line">            //这里要创建一个自己的IClipboard</div><div class="line">            IClipboardInvocationHandler clipoardHandler=new IClipboardInvocationHandler(base,iClipboard);</div><div class="line">            return Proxy.newProxyInstance(iClipboardClass.getClassLoader(),iClipboard.getClass().getInterfaces(),clipoardHandler);</div><div class="line">//            return proxy.queryLocalInterface((String) objects[0]);</div><div class="line">        &#125; else &#123;</div><div class="line">            Log.e(TAG, &quot;没进来======================&gt; &quot; + method.getName());</div><div class="line">            return method.invoke(base, objects);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
 <p>hook IClipboard的Handler<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 修改Clipboard的getPrimaryClip和hasPrimaryClip方法</div><div class="line"> */</div><div class="line">class IClipboardInvocationHandler implements InvocationHandler &#123;</div><div class="line">    private IBinder iBinder;</div><div class="line">    private Object iClipboard;</div><div class="line">    public IClipboardInvocationHandler(IBinder iBinder,Object iClipboard) &#123;</div><div class="line">        this.iBinder = iBinder;</div><div class="line">        this.iClipboard=iClipboard;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @TargetApi(Build.VERSION_CODES.HONEYCOMB)</div><div class="line">    @Override</div><div class="line">    public Object invoke(Object o, Method method, Object[] objects) throws Throwable &#123;</div><div class="line">        if (method.getName().equals(&quot;getPrimaryClip&quot;)) &#123;</div><div class="line">            Method getPrimaryClip = iClipboard.getClass().getDeclaredMethod(&quot;getPrimaryClip&quot;, String.class);</div><div class="line">            ClipData clipData = (ClipData) getPrimaryClip.invoke(iClipboard, objects);</div><div class="line">           return  ClipData.newPlainText(null,clipData.getItemAt(0).getText()</div><div class="line">                   +&quot; success!!!&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//        if (method.getName().equals(&quot;hasPrimaryClip&quot;)) &#123;</div><div class="line">//            return false;</div><div class="line">//        &#125;</div><div class="line">        return method.invoke(iClipboard,objects);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
-<p>[]: </p>
 
       
     </div>
@@ -416,12 +413,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/DroidPlugin/" rel="tag"># DroidPlugin</a>
-          
-        </div>
-      
 
       
       
@@ -431,7 +422,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/15/动态规划算法的副本/" rel="next" title="动态规划算法">
+              <a href="/2017/04/15/动态规划算法/" rel="next" title="动态规划算法">
                 <i class="fa fa-chevron-left"></i> 动态规划算法
               </a>
             
@@ -441,8 +432,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/15/动态规划算法/" rel="prev" title="动态规划算法">
-                动态规划算法 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/16/Hook机制之AMS&PMS/" rel="prev" title="Hook机制之AMS&PMS">
+                Hook机制之AMS&PMS <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -515,7 +506,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -526,21 +517,12 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
           
 
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>

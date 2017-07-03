@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="参考文章Android 插件化原理解析——Activity生命周期管理  java中实现动态加载,直接用ClassLoader,android中也是可以的,但是直接把某个类加载进来是不行的,activity、service等这些组件都是有生命周期的,都是由AMS统一管理的,所以仅仅直接加载进来是不行的,还需要交给AMS管理. DroidPlugin通过hook机制最终赋予activity、ser">
+<meta name="description" content="Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子module中如果读取一个res文件（layout或者xml等），都会优先读取父module的（依赖于它的module），所以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Activity生命周期管理">
-<meta property="og:url" content="http://yoursite.com/2017/04/19/Activity生命周期管理/index.html">
+<meta property="og:title" content="包坚强企业级开发学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/包坚强企业级开发学习/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="参考文章Android 插件化原理解析——Activity生命周期管理  java中实现动态加载,直接用ClassLoader,android中也是可以的,但是直接把某个类加载进来是不行的,activity、service等这些组件都是有生命周期的,都是由AMS统一管理的,所以仅仅直接加载进来是不行的,还需要交给AMS管理. DroidPlugin通过hook机制最终赋予activity、ser">
-<meta property="og:updated_time" content="2017-07-03T00:22:49.000Z">
+<meta property="og:description" content="Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子module中如果读取一个res文件（layout或者xml等），都会优先读取父module的（依赖于它的module），所以">
+<meta property="og:image" content="http://yoursite.com/pic/baojianqiang_p1.png">
+<meta property="og:updated_time" content="2017-07-03T00:13:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Activity生命周期管理">
-<meta name="twitter:description" content="参考文章Android 插件化原理解析——Activity生命周期管理  java中实现动态加载,直接用ClassLoader,android中也是可以的,但是直接把某个类加载进来是不行的,activity、service等这些组件都是有生命周期的,都是由AMS统一管理的,所以仅仅直接加载进来是不行的,还需要交给AMS管理. DroidPlugin通过hook机制最终赋予activity、ser">
+<meta name="twitter:title" content="包坚强企业级开发学习笔记">
+<meta name="twitter:description" content="Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子module中如果读取一个res文件（layout或者xml等），都会优先读取父module的（依赖于它的module），所以">
+<meta name="twitter:image" content="http://yoursite.com/pic/baojianqiang_p1.png">
 
 
 
@@ -130,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/19/Activity生命周期管理/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/包坚强企业级开发学习/"/>
 
 
 
 
 
-  <title>Activity生命周期管理 | X.Sation's Blog</title>
+  <title>包坚强企业级开发学习笔记 | X.Sation's Blog</title>
   
 
 
@@ -265,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Activity生命周期管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/包坚强企业级开发学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="X.Sation">
@@ -282,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Activity生命周期管理</h1>
+          <h1 class="post-title" itemprop="name headline">包坚强企业级开发学习笔记</h1>
         
 
         <div class="post-meta">
@@ -294,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T00:00:00+08:00">
-                2017-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T10:52:00+08:00">
+                2017-06-20
               </time>
             
 
@@ -317,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DroidPlugin/" itemprop="url" rel="index">
-                    <span itemprop="name">DroidPlugin</span>
+                  <a href="/categories/企业级开发/" itemprop="url" rel="index">
+                    <span itemprop="name">企业级开发</span>
                   </a>
                 </span>
 
@@ -356,13 +358,117 @@
       
 
       
-        <blockquote>
-<p>参考文章<a href="http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/" target="_blank" rel="external">Android 插件化原理解析——Activity生命周期管理</a></p>
+        <h1 id="Freeline"><a href="#Freeline" class="headerlink" title="Freeline"></a>Freeline</h1><p>注意要先去全量编译，再增量编译</p>
+<ul>
+<li>python freeline.py -f 全量编译</li>
+<li>python freeline.py    增量编译</li>
+</ul>
+<h1 id="定制化"><a href="#定制化" class="headerlink" title="定制化"></a>定制化</h1><ul>
+<li><p>写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断</p>
+<ul>
+<li>子module中如果读取一个res文件（layout或者xml等），都会优先读取父module的（依赖于它的module），所以我们可以在最外层的module中添加新的layout和xml等</li>
+</ul>
+</li>
+<li><p>用注解来代替</p>
+</li>
+<li><p>hook（父module中重写activity，然后去开启它）</p>
+</li>
+<li><p>layout布局</p>
+</li>
+</ul>
+<h1 id="注解编程"><a href="#注解编程" class="headerlink" title="注解编程"></a>注解编程</h1><ul>
+<li>运行时注解（效率低，所以最好不用，例如在自己写的ButterKnife的运行时注解版本中，又要循环遍历字段，又要反射）<ul>
+<li>类 比如实现ContentView的注解绑定</li>
+<li>方法 比如实现ButterKnife的事件绑定，通常需要在注解上再加注解(这或许是因为，绑定的方式不确定，但是onclick是确定的——setOnClickListener,onClick,OnListener,所以我并没有在注解上加注解)</li>
+<li>字段 比如实现ButterKnife的findViewById的</li>
+</ul>
+</li>
+<li>编译时注解（效率相对来说高，但是需要编译两次，而且写起了比较复杂）<ul>
+<li>编译时注解再rebuild之前，代码会报错，需要注释掉，变异完之后，反注释，很麻烦的</li>
+</ul>
+</li>
+</ul>
+<h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
+<li>构造方法内部注入</li>
+<li>构造方法中以参数形式传入</li>
+<li>set方法</li>
+<li>实现接口（相当于接口中声明了set方法）</li>
+</ul>
+<h2 id="Dagger2"><a href="#Dagger2" class="headerlink" title="Dagger2"></a>Dagger2</h2><ul>
+<li>@inject 用来申明目标类的对象或者生成目标类对象的构造方法</li>
+<li>Module 用来提供构造目标对象的方法</li>
+<li>Component 是目标对象和Module之间的桥梁，将Module中产生的对象注入到目标对象上</li>
+<li>@provides 用来声明module中的方法，表示该方法可以生成目标类的对象</li>
+</ul>
+<p>配置好之后，dagger2会通过编译时注解生成一系列代码，通过build一个component，然后用它注入目标类的对象所在的类中，那么他就会在module中查找被provides修饰的方法，用来给目标类注入，如果目标类需要某个对象，但是module中没有，就会去那个类中找他的构造方法，如果构造方法被@inject修饰，则可以注入</p>
+<p>在生成对象的方法（构造方法或者工厂方法）配置singleton注解，可以让生成的对象是一个对象,注意：在component中也要申明</p>
+<p>如果两个方法返回了同样的类，那么为了却分他们可以用@named去注解它，也可以用qualifier实现（用qualifier注解去注解一个自定义的注解，这样就可以用那个自定义的注解去注解生成类的方法了）</p>
+<p><strong>Lazy<t>   Provide<t></t></t></strong> </p>
+<ul>
+<li>一个是懒加载，有一个池子，第一次get的时候，初始化一个，放在池子里，以后直接从池子中取</li>
+<li>另一个是强制加载，第一次get的时候，创建一个，放在池子中，以后get的时候，怎么做由component决定</li>
+</ul>
+<p><img src="/pic/baojianqiang_p1.png" alt=""></p>
+<ul>
+<li>左边是对象生成的方法，主要有两种：1.被inject修饰的构造方法；2.module的构造方法</li>
+<li>右边是目标类的对象</li>
+<li>中间使用component来注入</li>
+</ul>
+<h1 id="Android中的AOP编程"><a href="#Android中的AOP编程" class="headerlink" title="Android中的AOP编程"></a>Android中的AOP编程</h1><ul>
+<li>方法前后打印日志</li>
+<li>try-catch</li>
+<li>安卓权限申请</li>
+</ul>
+<p>用方法前后打印日志的两种思路（把打印日志的要求抽取出来）</p>
+<ul>
+<li>在编译时读取抽取出来的内容，然后植入到方法的前后</li>
+<li>运行时，运行到某个方法了，然后从抽取出来的文件中查找，是否需要打印日志</li>
+</ul>
+<h2 id="AOP基本概念"><a href="#AOP基本概念" class="headerlink" title="AOP基本概念"></a>AOP基本概念</h2><ul>
+<li>Joint Point 连接点。比如把打印日志的方法收集到另一个文件中，那个文件中的位置和需要打印日志的方法对应的点</li>
+<li>Pointcut  切入点。正则匹配，匹配出来的方法</li>
+<li>Advice  before、after、覆盖around</li>
+</ul>
+<blockquote>
+<p>AspectJ框架</p>
 </blockquote>
-<p>java中实现动态加载,直接用<code>ClassLoader</code>,android中也是可以的,但是直接把某个类加载进来是不行的,activity、service等这些组件都是有生命周期的,都是由AMS统一管理的,所以仅仅直接加载进来是不行的,还需要交给AMS管理.</p>
-<p>DroidPlugin通过<code>hook</code>机制最终赋予activity、service等组件生命周期</p>
-<h2 id="AndroidManifest-xml的限制"><a href="#AndroidManifest-xml的限制" class="headerlink" title="AndroidManifest.xml的限制"></a>AndroidManifest.xml的限制</h2><p>在android中,要启动一个activity,必须要在清单文件中声明,那么就可以先在清单文件中声明有限个activity,要启动某个activity的时候,先启动声明中的,然后在某个时机替换为我们需要启动的activity</p>
-<h2 id="Activity启动过程"><a href="#Activity启动过程" class="headerlink" title="Activity启动过程"></a>Activity启动过程</h2><p>未完待续。。。</p>
+<ul>
+<li>Before、After、Around</li>
+<li>execution、call和withincode</li>
+<li>匹配规则</li>
+</ul>
+<p>Demo见<a href="https://github.com/kaikaixue/AOPDemo" target="_blank" rel="external">Github</a></p>
+<blockquote>
+<p>execution 执行方法</p>
+<p>call 调用方法的时候</p>
+<p>withincode 方法体内，具体反编译代码去看</p>
+</blockquote>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>异常捕获</li>
+<li>日志管理</li>
+<li>动态权限管理（用的也是自定义注解的方式，具体的自定义注解在demo中有，某个方法上注解之后，在监听他的地方，before中申请权限）</li>
+<li>热修复（使用around把方法覆盖）</li>
+</ul>
+<h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><ul>
+<li>最好一个View写一个接口</li>
+<li>看到一个View（Activity），就想他需要做哪些UI操作，然后开始抽象接口</li>
+</ul>
+<ul>
+<li><p>进入一个页面，会得到一个节目集信息id</p>
+<ul>
+<li>通过节目集id拿到节目集详情（这里有缺集和总集数，可以计算出选集的起始）<ul>
+<li>查询历史<ul>
+<li>播放</li>
+<li>保存这个信息，用来在显示选集的时候，高亮item</li>
+</ul>
+</li>
+<li>获取收藏信息</li>
+</ul>
+</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
 
       
     </div>
@@ -399,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/16/Hook机制之AMS&PMS/" rel="next" title="Hook机制之AMS&PMS">
-                <i class="fa fa-chevron-left"></i> Hook机制之AMS&PMS
+              <a href="/2017/06/19/小朋友开发笔记/" rel="next" title="小朋友开发笔记">
+                <i class="fa fa-chevron-left"></i> 小朋友开发笔记
               </a>
             
           </div>
@@ -408,10 +514,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/19/小朋友开发笔记/" rel="prev" title="小朋友开发笔记">
-                小朋友开发笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -551,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AndroidManifest-xml的限制"><span class="nav-number">1.</span> <span class="nav-text">AndroidManifest.xml的限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity启动过程"><span class="nav-number">2.</span> <span class="nav-text">Activity启动过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Freeline"><span class="nav-number">1.</span> <span class="nav-text">Freeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定制化"><span class="nav-number">2.</span> <span class="nav-text">定制化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解编程"><span class="nav-number">3.</span> <span class="nav-text">注解编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">4.</span> <span class="nav-text">依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dagger2"><span class="nav-number">4.1.</span> <span class="nav-text">Dagger2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的AOP编程"><span class="nav-number">5.</span> <span class="nav-text">Android中的AOP编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP基本概念"><span class="nav-number">5.1.</span> <span class="nav-text">AOP基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">5.1.1.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVP"><span class="nav-number">6.</span> <span class="nav-text">MVP</span></a></li></ol></div>
             
 
           </div>

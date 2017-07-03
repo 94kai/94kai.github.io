@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,自定义View," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -94,21 +94,20 @@
 
 
 <meta name="description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
-<meta name="keywords" content="Android,自定义View">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动手撸一个折线图">
 <meta property="og:url" content="http://yoursite.com/2016/12/09/动手撸一个折线图/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
 <meta property="og:description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
-<meta property="og:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p1.png">
-<meta property="og:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p2.png">
+<meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p1.png">
+<meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p2.png">
 <meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p3.png">
 <meta property="og:image" content="http://yoursite.com/pic/zhexiantu_p4.png">
-<meta property="og:updated_time" content="2017-07-02T23:44:46.000Z">
+<meta property="og:updated_time" content="2017-07-03T01:19:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动手撸一个折线图">
 <meta name="twitter:description" content="以前觉得用安卓画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。 进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图 图一 图二如果我告诉你这两个图的实现思路是一样的，而且都很">
-<meta name="twitter:image" content="http://yoursite.com/2016/12/09/pic/zhexiantu_p1.png">
+<meta name="twitter:image" content="http://yoursite.com/pic/zhexiantu_p1.png">
 
 
 
@@ -228,7 +227,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            目录
           </a>
         </li>
       
@@ -364,8 +363,8 @@
       
         <p>以前觉得用<a href="http://lib.csdn.net/base/android" target="_blank" rel="external">安卓</a>画一个折线图好难，当然github上也有很多方便的框架，几行代码就可以实现一个折线图，而且各种样式都有，但是别人的框架毕竟是为了满足大众的需求，没有专一性，正好前几天接了一个私活，要用到折线图，时间也比较充足，就试着自己写一个玩玩。</p>
 <p>进过仔细分析小米天气中的折线图后，发现其实写一个折线图是非常简单的。先上两张小米天气的折线图</p>
-<p>图一<br><img src="../pic/zhexiantu_p1.png" alt=""></p>
-<p>图二<br><img src="../pic/zhexiantu_p2.png" alt=""><br>如果我告诉你这两个图的实现思路是一样的，而且都很容易，你会不会很震惊。<br>其实是第二种图中“今天”那一项数据给提供了思路，没错，recyclerview。<br>拿第一张图片来分析<br><img src="/pic/zhexiantu_p3.png" alt="zhexiantu_p3"></p>
+<p>图一<br><img src="/pic/zhexiantu_p1.png" alt=""></p>
+<p>图二<br><img src="/pic/zhexiantu_p2.png" alt=""><br>如果我告诉你这两个图的实现思路是一样的，而且都很容易，你会不会很震惊。<br>其实是第二种图中“今天”那一项数据给提供了思路，没错，recyclerview。<br>拿第一张图片来分析<br><img src="/pic/zhexiantu_p3.png" alt="zhexiantu_p3"></p>
 <p>黑色部分框起来的就当做一个item，首先我们要把所有数据中的最大值和最小值取出来，如红线画住的部分，然后确定一个区间（y坐标），表示我们所有的点都要在这个区间内显示。图中当值为176表示最大，在第一个红线那个高度，44表示最小，在第二条直线那个高度，这两个高度是我们指定的，那么70这个值对应的高度很明显就可以计算出来，103的高度也可以计算出来，70和103的中间值，也就是图中第一个红圈圈住的地方的高度也可以确定出来，同理，第三个小圆圈也知道了，然后第一个小圆圈和第二个连线，第二个和第三个连线，这就画好了一个item的折线。多个item连接起来就是上面的效果。</p>
 <p>第二张图思路也是一样的，只不过在一个item上画了两个折线，如图中黑线框住的区域<br><img src="/pic/zhexiantu_p4.png" alt="zhexiantu_p4"><br>思路就是这样，是不是很简单了，当然前提要掌握view的绘制，因为每一个item都是继承自view，然后绘制的。</p>
 <p>上代码,总共就三个java文件，也不用布局文件，直接导进去就可以看效果。记得依赖recyclerview的库哦。代码注释也写得比较清楚，主要代码就是那个item</p>
@@ -397,14 +396,6 @@
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-            <a href="/tags/自定义View/" rel="tag"># 自定义View</a>
-          
-        </div>
       
 
       
@@ -490,7 +481,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -501,21 +492,12 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
           
 
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>

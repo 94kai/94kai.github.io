@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android,基础知识," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -94,19 +94,18 @@
 
 
 <meta name="description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
-<meta name="keywords" content="Android,基础知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View的测量">
 <meta property="og:url" content="http://yoursite.com/2016/11/28/View的测量/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
 <meta property="og:description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
-<meta property="og:image" content="http://yoursite.com/2016/11/28/pic/view的celiang_p1.png">
-<meta property="og:image" content="http://yoursite.com/2016/11/28/pic/view的celiang_p2.png">
-<meta property="og:updated_time" content="2017-07-02T23:50:36.000Z">
+<meta property="og:image" content="http://yoursite.com/pic/view的celiang_p1.png">
+<meta property="og:image" content="http://yoursite.com/pic/view的celiang_p2.png">
+<meta property="og:updated_time" content="2017-07-03T00:17:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的测量">
 <meta name="twitter:description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
-<meta name="twitter:image" content="http://yoursite.com/2016/11/28/pic/view的celiang_p1.png">
+<meta name="twitter:image" content="http://yoursite.com/pic/view的celiang_p1.png">
 
 
 
@@ -226,7 +225,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            目录
           </a>
         </li>
       
@@ -360,7 +359,7 @@
       
 
       
-        <p>学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。<br>突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。<br><img src="../pic/view的celiang_p1.png" alt="view的celiang_p1"><br><img src="../pic/view的celiang_p2.png" alt="view的celiang_p2"></p>
+        <p>学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。<br>突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。<br><img src="/pic/view的celiang_p1.png" alt="view的celiang_p1"><br><img src="/pic/view的celiang_p2.png" alt="view的celiang_p2"></p>
 <p>如图二所示，前面两行好理解，<br>第一行：一个view指定了具体的宽高，XXdp，那么无论他的父容器在他的爷爷容器中是如何的，该view都是显示XXdp。<br>第二行：如果一个view是match_parent,那么他的宽高就是他爸剩余容量的大小。<br><strong>第三行：</strong>这里我之前理解错了，以为一个view设置了wrap_content之后，他的宽高就如右侧显示，当然，确实如此，但是总感觉有点疑问。看完鸿洋那句话才恍然大悟。其实这里我们也不用考虑他，因为view都说了他的宽高根据内容而定，所以他的父亲是给不了一个靠谱的答案的，所以还不如我们自己去计算。而现有的控件（TextView等）他们内部已经做了计算了。所以自定义view的时候，我们在onMeasure这块着重计算当宽高为wrap_content这种情况的宽高就好了，根据内容、边距等去计算，然后调用setMeasuredDimension即可。而对于前两种情况，一般用参数中传递过来的值（父亲给的）来设置就好了，因为前两种情况中父亲给的值是比较靠谱的。</p>
 <p>附上参考链接：1.<a href="http://blog.csdn.net/singwhatiwanna/article/details/38426471" target="_blank" rel="external">任玉刚</a></p>
 <p>2.<a href="http://blog.csdn.net/lmj623565791/article/details/38339817" target="_blank" rel="external">鸿洋</a></p>
@@ -390,14 +389,6 @@
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag"># Android</a>
-          
-            <a href="/tags/基础知识/" rel="tag"># 基础知识</a>
-          
-        </div>
       
 
       
@@ -479,7 +470,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -490,21 +481,12 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
           
 
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
           
 
         </nav>
