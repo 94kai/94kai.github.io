@@ -1,0 +1,870 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="title: 包坚强企业级开发学习笔记categories: 企业级开发date: 2017-6-20 10:52​     Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="X.Sation&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2017/07/01/包坚强企业级开发学习/index.html">
+<meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="title: 包坚强企业级开发学习笔记categories: 企业级开发date: 2017-6-20 10:52​     Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子">
+<meta property="og:image" content="http://yoursite.com/pic/baojianqiang_p1.png">
+<meta property="og:image" content="http://yoursite.com/pic/baojianqiang_p2.png">
+<meta property="og:updated_time" content="2017-07-08T02:26:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="X.Sation&#39;s Blog">
+<meta name="twitter:description" content="title: 包坚强企业级开发学习笔记categories: 企业级开发date: 2017-6-20 10:52​     Freeline注意要先去全量编译，再增量编译  python freeline.py -f 全量编译 python freeline.py    增量编译  定制化 写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断  子">
+<meta name="twitter:image" content="http://yoursite.com/pic/baojianqiang_p1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/01/包坚强企业级开发学习/"/>
+
+
+
+
+
+  <title> | X.Sation's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">X.Sation's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            目录
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/01/包坚强企业级开发学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T23:21:55+08:00">
+                2017-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>title: 包坚强企业级开发学习笔记<br>categories: 企业级开发<br>date: 2017-6-20 10:52<br>​    </p>
+<h1 id="Freeline"><a href="#Freeline" class="headerlink" title="Freeline"></a>Freeline</h1><p>注意要先去全量编译，再增量编译</p>
+<ul>
+<li>python freeline.py -f 全量编译</li>
+<li>python freeline.py    增量编译</li>
+</ul>
+<h1 id="定制化"><a href="#定制化" class="headerlink" title="定制化"></a>定制化</h1><ul>
+<li><p>写一个配置文件，然后写一个工具类，传入key，得到配置文件中配置的结果，然后该结果作为if条件的判断</p>
+<ul>
+<li>子module中如果读取一个res文件（layout或者xml等），都会优先读取父module的（依赖于它的module），所以我们可以在最外层的module中添加新的layout和xml等</li>
+</ul>
+</li>
+<li><p>用注解来代替</p>
+</li>
+<li><p>hook（父module中重写activity，然后去开启它）</p>
+</li>
+<li><p>layout布局</p>
+</li>
+</ul>
+<h1 id="注解编程"><a href="#注解编程" class="headerlink" title="注解编程"></a>注解编程</h1><ul>
+<li>运行时注解（效率低，所以最好不用，例如在自己写的ButterKnife的运行时注解版本中，又要循环遍历字段，又要反射）<ul>
+<li>类 比如实现ContentView的注解绑定</li>
+<li>方法 比如实现ButterKnife的事件绑定，通常需要在注解上再加注解(这或许是因为，绑定的方式不确定，但是onclick是确定的——setOnClickListener,onClick,OnListener,所以我并没有在注解上加注解)</li>
+<li>字段 比如实现ButterKnife的findViewById的</li>
+</ul>
+</li>
+<li>编译时注解（效率相对来说高，但是需要编译两次，而且写起了比较复杂）<ul>
+<li>编译时注解再rebuild之前，代码会报错，需要注释掉，变异完之后，反注释，很麻烦的</li>
+</ul>
+</li>
+</ul>
+<h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
+<li>构造方法内部注入</li>
+<li>构造方法中以参数形式传入</li>
+<li>set方法</li>
+<li>实现接口（相当于接口中声明了set方法）</li>
+</ul>
+<h2 id="Dagger2"><a href="#Dagger2" class="headerlink" title="Dagger2"></a>Dagger2</h2><ul>
+<li>@inject 用来申明目标类的对象或者生成目标类对象的构造方法</li>
+<li>Module 用来提供构造目标对象的方法</li>
+<li>Component 是目标对象和Module之间的桥梁，将Module中产生的对象注入到目标对象上</li>
+<li>@provides 用来声明module中的方法，表示该方法可以生成目标类的对象</li>
+</ul>
+<p>配置好之后，dagger2会通过编译时注解生成一系列代码，通过build一个component，然后用它注入目标类的对象所在的类中，那么他就会在module中查找被provides修饰的方法，用来给目标类注入，如果目标类需要某个对象，但是module中没有，就会去那个类中找他的构造方法，如果构造方法被@inject修饰，则可以注入</p>
+<p>在生成对象的方法（构造方法或者工厂方法）配置singleton注解，可以让生成的对象是一个对象,注意：在component中也要申明</p>
+<p>如果两个方法返回了同样的类，那么为了却分他们可以用@named去注解它，也可以用qualifier实现（用qualifier注解去注解一个自定义的注解，这样就可以用那个自定义的注解去注解生成类的方法了）</p>
+<p><strong>Lazy<t>   Provide<t></t></t></strong> </p>
+<ul>
+<li>一个是懒加载，有一个池子，第一次get的时候，初始化一个，放在池子里，以后直接从池子中取</li>
+<li>另一个是强制加载，第一次get的时候，创建一个，放在池子中，以后get的时候，怎么做由component决定</li>
+</ul>
+<p><img src="/pic/baojianqiang_p1.png" alt=""></p>
+<ul>
+<li>左边是对象生成的方法，主要有两种：1.被inject修饰的构造方法；2.module的构造方法</li>
+<li>右边是目标类的对象</li>
+<li>中间使用component来注入</li>
+</ul>
+<h1 id="Android中的AOP编程"><a href="#Android中的AOP编程" class="headerlink" title="Android中的AOP编程"></a>Android中的AOP编程</h1><ul>
+<li>方法前后打印日志</li>
+<li>try-catch</li>
+<li>安卓权限申请</li>
+</ul>
+<p>用方法前后打印日志的两种思路（把打印日志的要求抽取出来）</p>
+<ul>
+<li>在编译时读取抽取出来的内容，然后植入到方法的前后</li>
+<li>运行时，运行到某个方法了，然后从抽取出来的文件中查找，是否需要打印日志</li>
+</ul>
+<h2 id="AOP基本概念"><a href="#AOP基本概念" class="headerlink" title="AOP基本概念"></a>AOP基本概念</h2><ul>
+<li>Joint Point 连接点。比如把打印日志的方法收集到另一个文件中，那个文件中的位置和需要打印日志的方法对应的点</li>
+<li>Pointcut  切入点。正则匹配，匹配出来的方法</li>
+<li>Advice  before、after、覆盖around</li>
+</ul>
+<blockquote>
+<p>AspectJ框架</p>
+</blockquote>
+<ul>
+<li>Before、After、Around</li>
+<li>execution、call和withincode</li>
+<li>匹配规则</li>
+</ul>
+<p>Demo见<a href="https://github.com/kaikaixue/AOPDemo" target="_blank" rel="external">Github</a></p>
+<blockquote>
+<p>execution 执行方法</p>
+<p>call 调用方法的时候</p>
+<p>withincode 方法体内，具体反编译代码去看</p>
+</blockquote>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>异常捕获</li>
+<li>日志管理</li>
+<li>动态权限管理（用的也是自定义注解的方式，具体的自定义注解在demo中有，某个方法上注解之后，在监听他的地方，before中申请权限）</li>
+<li>热修复（使用around把方法覆盖）</li>
+</ul>
+<h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><ul>
+<li>最好一个View写一个接口</li>
+<li>看到一个View（Activity），就想他需要做哪些UI操作，然后开始抽象接口</li>
+</ul>
+<h1 id="DataBinding"><a href="#DataBinding" class="headerlink" title="DataBinding"></a>DataBinding</h1><p>布局文件<xxx></xxx></p>
+<p>则：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">layout</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">data</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">variable</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">type</span>=<span class="string">"class name"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">data</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">xxx</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在布局文件中可以申明基本数据类型，或者一些类，然后在java文件中可以设置这些值</p>
+<blockquote>
+<p>不推荐使用databinding，互相观察影响性能，还容易内存泄漏</p>
+</blockquote>
+<ul>
+<li>单项绑定</li>
+<li>双向绑定</li>
+</ul>
+<h1 id="插件化"><a href="#插件化" class="headerlink" title="插件化"></a>插件化</h1><p>业内的一些主要思想</p>
+<ul>
+<li>任玉刚 Dynamic-load :主工程中有一个Activity，插件中有许多无生命的Activity类，让主工程中的Activity调用插件中那些类的生命周期，使其有了生命。就想老头操作玩偶</li>
+<li>张勇 DroidPlugin:用hook的思想，修改activity的启动等android源码</li>
+</ul>
+<p>两种classloaser</p>
+<ul>
+<li>DexClassLoader 可以加载插件dex或者插件apk中的类（未安装的apk也可以）</li>
+<li>PathClassLoader 只能加载安装完的apk中的类，即system目录下的</li>
+</ul>
+<h2 id="插件化编程需要解决的几个问题"><a href="#插件化编程需要解决的几个问题" class="headerlink" title="插件化编程需要解决的几个问题"></a>插件化编程需要解决的几个问题</h2><blockquote>
+<ol>
+<li>从插件中加载一个类</li>
+<li>从插件中加载资源</li>
+<li>从插件中加载四大组件（让类富有生命）</li>
+</ol>
+</blockquote>
+<h3 id="从插件中加载类"><a href="#从插件中加载类" class="headerlink" title="从插件中加载类"></a>从插件中加载类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//xxxxx把apk拷贝到data/data/file目录下</span></div><div class="line"><span class="comment">//把apk  </span></div><div class="line">		File extractFile = getFileStreamPath(apkname);</div><div class="line">        dexpath = extractFile.getPath();</div><div class="line"></div><div class="line">        fileRelease = getDir(<span class="string">"dex"</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line">        Log.e(TAG,<span class="string">"onCreate"</span>+dexpath);</div><div class="line">        Log.e(TAG,<span class="string">"onCreate"</span>+fileRelease.getAbsolutePath());</div><div class="line">        dexClassLoader = <span class="keyword">new</span> DexClassLoader(dexpath, fileRelease.getAbsolutePath(), <span class="keyword">null</span>, getClassLoader());<span class="comment">//此时拿到一个dexclassloader，就可以通过loadclass来加载apk中的类了，然后可以通过反射的方法去调用类的方法等</span></div></pre></td></tr></table></figure>
+<ul>
+<li>直接利用反射的方式去调用</li>
+<li>面向接口编程，让宿主apk和插件apk都依赖同一个module，在module中定义一些接口，在宿主中可以直接把反射到的类强转成module中的接口（调用无参的、有参的、参数为回调函数的各种方法）</li>
+</ul>
+<h3 id="从插件中加载资源"><a href="#从插件中加载资源" class="headerlink" title="从插件中加载资源"></a>从插件中加载资源</h3><p>首先要搞清楚安卓中资源的加载链，如图所示</p>
+<p><img src="/pic/baojianqiang_p2.png" alt=""></p>
+<p>context是application、activity、service，activity中需要资源，是通过context得到的，context其实实现类是contextimpl。在contextimpl中有mResources的引用，我们通常的getResource就是拿到的它。他的资源是通过AssertManager拿的，当然context中也可以直接通过AssertManager拿，比如TypedArray。而AssertManager是从apk中获取的资源。</p>
+<p>综上，我们最终是通过AssertManager来从apk中获取资源的，所以要在这里动文章。</p>
+<blockquote>
+<p>注意：目前发现引入了插件中的res之后，宿主中调用宿主的res的key，其实使用的是插件的，看build中的R文件发现，每个app中的资源id是按顺序来命名的，比如string，第一个是0x7f060021第二个是xxxxx22依次类推，所以要解决资源文件冲突问题需要手动干预这个值</p>
+</blockquote>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//首先要重写getResource方法，让context可以获取到我们加工过的mResources  </span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Resources <span class="title">getResources</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">return</span> mResources == <span class="keyword">null</span> ? <span class="keyword">super</span>.getResources() : mResources;</div><div class="line">&#125;</div><div class="line"><span class="comment">//要使用插件中的res的时候，需要调用这个方法，但是发现加载了插件的res后，宿主中的res好像被覆盖了，调用宿主res的key，得到的依旧是插件中的</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadResource</span><span class="params">(String dexpath)</span> <span class="keyword">throws</span> IllegalAccessException, 							InstantiationException, NoSuchMethodException, InvocationTargetException </span>&#123;</div><div class="line">	AssetManager assetManager = AssetManager.class.newInstance();</div><div class="line">	Method addAssetPath = AssetManager.class.getDeclaredMethod(<span class="string">"addAssetPath"</span>, 						String.class);</div><div class="line">  	<span class="comment">//调用addAssetPath，参数为插件path，使得assetManager被加工过</span></div><div class="line">	addAssetPath.invoke(assetManager, dexpath);</div><div class="line">	<span class="comment">//取出当前的res</span></div><div class="line">	Resources resources = <span class="keyword">super</span>.getResources();</div><div class="line">  	<span class="comment">//基于当前的res，创建一个新的res，这个res将在getResources中被返回</span></div><div class="line">    mResources = <span class="keyword">new</span> Resources(assetManager, resources.getDisplayMetrics(), 						resources.getConfiguration());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="解决资源文件冲突问题"><a href="#解决资源文件冲突问题" class="headerlink" title="解决资源文件冲突问题"></a>解决资源文件冲突问题</h4><p>apk打包过程中使用各种命令来完成，AAPT命令的任务就是将各种资源生成对应的id。</p>
+<blockquote>
+<p> 资源id的默认命名规范：0x7f开头，接下来的四位表示类型（drawable、string等），再下来的四位表示标号，从0开始，按顺序递增</p>
+</blockquote>
+<p>所以我们可以在aapt命令执行时传递参数，使得前缀不再是0x7f而是根据插件来决定，这样的话，每个插件的前缀都不一样</p>
+<h3 id="使用插件中的四大组件"><a href="#使用插件中的四大组件" class="headerlink" title="使用插件中的四大组件"></a>使用插件中的四大组件</h3><p>（Activity、service、boardreceive，但是内容提供者不一样）以Activity为例，使用hook机制，偷梁换柱，就可以达到启动未在插件中声明的Activity，然后放到PMS的对应的集合中（四大组件都有对应的集合），Activity就具有生命周期了</p>
+<p>要解决的问题也就是：</p>
+<ul>
+<li>通过ams的检测，防止Activity在清单文件中没注册的错误</li>
+<li>把信息放在pms中，使其有生命周期</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/19/小朋友开发笔记/" rel="next" title="小朋友开发笔记">
+                <i class="fa fa-chevron-left"></i> 小朋友开发笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/06/版本控制学习笔记/" rel="prev" title="版本控制学习笔记">
+                版本控制学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/favicon.ico"
+               alt="X.Sation" />
+          <p class="site-author-name" itemprop="name">X.Sation</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kaikaixue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3179322384/info" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Freeline"><span class="nav-number">1.</span> <span class="nav-text">Freeline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定制化"><span class="nav-number">2.</span> <span class="nav-text">定制化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解编程"><span class="nav-number">3.</span> <span class="nav-text">注解编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">4.</span> <span class="nav-text">依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dagger2"><span class="nav-number">4.1.</span> <span class="nav-text">Dagger2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的AOP编程"><span class="nav-number">5.</span> <span class="nav-text">Android中的AOP编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP基本概念"><span class="nav-number">5.1.</span> <span class="nav-text">AOP基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">5.1.1.</span> <span class="nav-text">使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVP"><span class="nav-number">6.</span> <span class="nav-text">MVP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DataBinding"><span class="nav-number">7.</span> <span class="nav-text">DataBinding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件化"><span class="nav-number">8.</span> <span class="nav-text">插件化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件化编程需要解决的几个问题"><span class="nav-number">8.1.</span> <span class="nav-text">插件化编程需要解决的几个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从插件中加载类"><span class="nav-number">8.1.1.</span> <span class="nav-text">从插件中加载类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从插件中加载资源"><span class="nav-number">8.1.2.</span> <span class="nav-text">从插件中加载资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决资源文件冲突问题"><span class="nav-number">8.1.2.1.</span> <span class="nav-text">解决资源文件冲突问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用插件中的四大组件"><span class="nav-number">8.1.3.</span> <span class="nav-text">使用插件中的四大组件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X.Sation</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
