@@ -101,7 +101,7 @@
 <meta property="og:description" content="简介关于版本控制本地版本控制集中版本控制如svn等，客户端仅存有最新版本，记录等都在服务器上，服务器一旦故障，就坏了。管理员可以方便的管理协作人员的权限等 分布式版本控制如GIT等，在本地存有所有提交记录，无网络也可以提交，任何一个客户端都拥有完整的仓库镜像，服务器故障之后可以通过任何一个本地仓库去恢复 GIT基础SVN类的版本控制会记录每个版本之间的文件差异，如图  GIT不会记录每次变更时的差">
 <meta property="og:image" content="http://yoursite.com/pic/vcs_p1.png">
 <meta property="og:image" content="http://yoursite.com/pic/vcs_p2.png">
-<meta property="og:updated_time" content="2017-07-06T10:34:39.000Z">
+<meta property="og:updated_time" content="2017-07-10T09:44:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="版本控制学习笔记">
 <meta name="twitter:description" content="简介关于版本控制本地版本控制集中版本控制如svn等，客户端仅存有最新版本，记录等都在服务器上，服务器一旦故障，就坏了。管理员可以方便的管理协作人员的权限等 分布式版本控制如GIT等，在本地存有所有提交记录，无网络也可以提交，任何一个客户端都拥有完整的仓库镜像，服务器故障之后可以通过任何一个本地仓库去恢复 GIT基础SVN类的版本控制会记录每个版本之间的文件差异，如图  GIT不会记录每次变更时的差">
@@ -337,6 +337,17 @@
 <p>例如想要和某个时间的代码比较，直接从本地取出那时的代码，做差异运算而不用像svn一样从网络获取。</p>
 <p>无网络状态下也可以提交代码，有网的时候再push</p>
 <p>git依赖内容和目录结构构建出一个哈希值，用来作为文件的索引，而不用文件名</p>
+<h3 id="文件的三种状态"><a href="#文件的三种状态" class="headerlink" title="文件的三种状态"></a>文件的三种状态</h3><ul>
+<li><p>已提交</p>
+<p>已经被安全的提交到本地数据库了</p>
+</li>
+<li><p>已暂存</p>
+<p>表示把已修改的文件添加到下次要提交的清单中</p>
+</li>
+<li><p>已修改</p>
+<p>已修改但是没有提交</p>
+</li>
+</ul>
 
       
     </div>
@@ -373,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/01/包坚强企业级开发学习/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2017/06/20/包坚强企业级开发学习/" rel="next" title="包坚强企业级开发学习笔记">
+                <i class="fa fa-chevron-left"></i> 包坚强企业级开发学习笔记
               </a>
             
           </div>
@@ -382,6 +393,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/12/App开发者需要掌握的底层知识（1）/" rel="prev" title="App开发者需要掌握的底层知识（1）">
+                App开发者需要掌握的底层知识（1） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -453,7 +468,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -464,7 +479,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -521,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于版本控制"><span class="nav-number">1.1.</span> <span class="nav-text">关于版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地版本控制"><span class="nav-number">1.1.1.</span> <span class="nav-text">本地版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中版本控制"><span class="nav-number">1.1.2.</span> <span class="nav-text">集中版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式版本控制"><span class="nav-number">1.1.3.</span> <span class="nav-text">分布式版本控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIT基础"><span class="nav-number">1.2.</span> <span class="nav-text">GIT基础</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于版本控制"><span class="nav-number">1.1.</span> <span class="nav-text">关于版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地版本控制"><span class="nav-number">1.1.1.</span> <span class="nav-text">本地版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中版本控制"><span class="nav-number">1.1.2.</span> <span class="nav-text">集中版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式版本控制"><span class="nav-number">1.1.3.</span> <span class="nav-text">分布式版本控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIT基础"><span class="nav-number">1.2.</span> <span class="nav-text">GIT基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的三种状态"><span class="nav-number">1.2.1.</span> <span class="nav-text">文件的三种状态</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
