@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/04/IPC介绍/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
 <meta property="og:description" content="1. android中的多进程模式正常情况下，android中的多进程是指一个应用中的多个进程，所以这里不考虑两个应用的通讯。开启多进程的唯一方式就是在清单文件中给四大组件指定android：process属性。除此之外，还有一种非常规的方式，就是通过JNI在native层去fork一个新进程，暂不考虑。 123&amp;lt;activity android:name=&amp;quot;.MainActivi">
-<meta property="og:updated_time" content="2017-07-03T01:52:31.000Z">
+<meta property="og:updated_time" content="2017-08-15T15:58:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IPC介绍">
 <meta name="twitter:description" content="1. android中的多进程模式正常情况下，android中的多进程是指一个应用中的多个进程，所以这里不考虑两个应用的通讯。开启多进程的唯一方式就是在清单文件中给四大组件指定android：process属性。除此之外，还有一种非常规的方式，就是通过JNI在native层去fork一个新进程，暂不考虑。 123&amp;lt;activity android:name=&amp;quot;.MainActivi">
@@ -368,6 +368,7 @@
 </ul>
 <h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><ul>
 <li>是android中独有的序列化方法，更适合android，效率高，但是使用麻烦，主要用在内存序列化上，如果是存储到设备上或者通过网络传输，推荐使用serializable</li>
+<li>parcel可以在binder中自由传输</li>
 </ul>
 <h2 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h2><h1 id="3-android进程间通讯的方式"><a href="#3-android进程间通讯的方式" class="headerlink" title="3. android进程间通讯的方式"></a>3. android进程间通讯的方式</h1><h2 id="使用Bundle-传输数据"><a href="#使用Bundle-传输数据" class="headerlink" title="使用Bundle 传输数据"></a>使用Bundle 传输数据</h2><ul>
 <li>四大组件中除了内容提供者，其他都支持通过Intent，携带Bundle传输数据，他也是实现了Parcelable接口</li>
@@ -552,7 +553,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

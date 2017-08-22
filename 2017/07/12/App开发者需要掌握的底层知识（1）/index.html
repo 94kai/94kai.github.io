@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/12/App开发者需要掌握的底层知识（1）/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
 <meta property="og:description" content="App开发者需要掌握的底层知识:  Binder  AIDL  AMS  Activity  Service  ContentProvider  匿名共享内存  BroadcastReceiver  PMS及App安装过程     以上为该系列所包括的，除此之外还包括:  View和ViewGroup  Message、Looper和Handler  权限管理  Android SDK工具内部原理">
-<meta property="og:updated_time" content="2017-07-12T15:48:00.000Z">
+<meta property="og:updated_time" content="2017-07-19T07:00:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="App开发者需要掌握的底层知识（1）">
 <meta name="twitter:description" content="App开发者需要掌握的底层知识:  Binder  AIDL  AMS  Activity  Service  ContentProvider  匿名共享内存  BroadcastReceiver  PMS及App安装过程     以上为该系列所包括的，除此之外还包括:  View和ViewGroup  Message、Looper和Handler  权限管理  Android SDK工具内部原理">
@@ -384,6 +384,25 @@
 <ol>
 <li>Binder可以分为client和server两个进程，可以粗略的认为，发消息的一端就是binder client，接受消息的一端就是binder server。AIDL、四大组件和AMS之间的通讯，其实就是binder两个进程之间的通讯。</li>
 </ol>
+<h1 id="AIDL与AMS相关"><a href="#AIDL与AMS相关" class="headerlink" title="AIDL与AMS相关"></a>AIDL与AMS相关</h1><p>一个aidl文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface IComputer &#123;</div><div class="line">    int add(int a, long b);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>make项目之后，会自动生成一个java文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">interface IComputer extends IInterface&#123;</div><div class="line">  </div><div class="line">  public abstract class Stub extends Binder implements IComputer&#123;</div><div class="line">    </div><div class="line">    public IComputer asInterface(IBinder ibinder)&#123;</div><div class="line">      //Stub表示对于IComputer具体的实现</div><div class="line">      //如果stub的定义与使用在同一进程，则直接返回this</div><div class="line">      //如果不在同一进程，new一个代理类，并返回</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public class Proxy implements IComputer&#123;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在服务的定义IComputer的具体实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class Computer extends IComputer.Stub&#123;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int add(int a, long b) throws RemoteException &#123;</div><div class="line">            return 0;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在客户端，或者服务端使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IComputer.Stub.asInterface(iBinder).add(1,2);</div></pre></td></tr></table></figure>
+<p>asInterface这个方法被调动的时候，如果是在本地，从本地取出IComputer，如果不在一个进程中，则创建一个proxy，并且返回，然后执行的方法就是proxy的方法。</p>
+<hr>
+<p>类比上面：</p>
+<p>IActivityManager =&gt; IComputer</p>
+<p>ActivityManagerNative =&gt; IComputer.Stub</p>
+<p>ActivityManagerProxy =&gt; Proxy</p>
+<blockquote>
+<p>ActivityManagerNative和ActivityManagerProxy都是针对使用者这一端的，ActivityManagerServer是在服务端的，它继承自ActivityManagerNative</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ActivityManagerNative.asInterface().startActivity();</div></pre></td></tr></table></figure>
+<p>如果asInterface返回的是AMN，说明服务端和客户端是在同一个进程中的，如果返回的是AMP，说明不是在同一个进程中，AMP中的方法（startActivity）是把数据写入到另一个进程（AMS那边）,然后ams那边计算出结果，然后写入到amp这端</p>
 
       
     </div>
@@ -504,7 +523,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -572,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Binder"><span class="nav-number">1.</span> <span class="nav-text">Binder</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Binder"><span class="nav-number">1.</span> <span class="nav-text">Binder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AIDL与AMS相关"><span class="nav-number">2.</span> <span class="nav-text">AIDL与AMS相关</span></a></li></ol></div>
             
 
           </div>
