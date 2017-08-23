@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="App开发者需要掌握的底层知识:  Binder  AIDL  AMS  Activity  Service  ContentProvider  匿名共享内存  BroadcastReceiver  PMS及App安装过程     以上为该系列所包括的，除此之外还包括:  View和ViewGroup  Message、Looper和Handler  权限管理  Android SDK工具内部原理">
+<meta name="description" content="写了一晚上，写到电脑没电，没实现，总是有点小问题，睡觉前想了想，果然思路清晰，早上来公司几分钟搞定 先上效果图  给viewpager设置PageTransformer 真的炒鸡简单呀，日了狗了 1234567891011121314151617/** * Created by xuekai on 2017/8/22. */class HomeBannerTransformer : ViewPag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="App开发者需要掌握的底层知识（1）">
-<meta property="og:url" content="http://yoursite.com/2017/07/12/App开发者需要掌握的底层知识（1）/index.html">
+<meta property="og:title" content="仿《开眼App》轮播图动画">
+<meta property="og:url" content="http://yoursite.com/2017/08/23/仿《开眼App》轮播图动画/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="App开发者需要掌握的底层知识:  Binder  AIDL  AMS  Activity  Service  ContentProvider  匿名共享内存  BroadcastReceiver  PMS及App安装过程     以上为该系列所包括的，除此之外还包括:  View和ViewGroup  Message、Looper和Handler  权限管理  Android SDK工具内部原理">
-<meta property="og:updated_time" content="2017-07-19T07:00:02.000Z">
+<meta property="og:description" content="写了一晚上，写到电脑没电，没实现，总是有点小问题，睡觉前想了想，果然思路清晰，早上来公司几分钟搞定 先上效果图  给viewpager设置PageTransformer 真的炒鸡简单呀，日了狗了 1234567891011121314151617/** * Created by xuekai on 2017/8/22. */class HomeBannerTransformer : ViewPag">
+<meta property="og:image" content="http://yoursite.com/pic/lunbotu.gif">
+<meta property="og:updated_time" content="2017-08-23T00:53:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="App开发者需要掌握的底层知识（1）">
-<meta name="twitter:description" content="App开发者需要掌握的底层知识:  Binder  AIDL  AMS  Activity  Service  ContentProvider  匿名共享内存  BroadcastReceiver  PMS及App安装过程     以上为该系列所包括的，除此之外还包括:  View和ViewGroup  Message、Looper和Handler  权限管理  Android SDK工具内部原理">
+<meta name="twitter:title" content="仿《开眼App》轮播图动画">
+<meta name="twitter:description" content="写了一晚上，写到电脑没电，没实现，总是有点小问题，睡觉前想了想，果然思路清晰，早上来公司几分钟搞定 先上效果图  给viewpager设置PageTransformer 真的炒鸡简单呀，日了狗了 1234567891011121314151617/** * Created by xuekai on 2017/8/22. */class HomeBannerTransformer : ViewPag">
+<meta name="twitter:image" content="http://yoursite.com/pic/lunbotu.gif">
 
 
 
@@ -130,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/12/App开发者需要掌握的底层知识（1）/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/23/仿《开眼App》轮播图动画/"/>
 
 
 
 
 
-  <title>App开发者需要掌握的底层知识（1） | X.Sation's Blog</title>
+  <title>仿《开眼App》轮播图动画 | X.Sation's Blog</title>
   
 
 
@@ -255,7 +257,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/App开发者需要掌握的底层知识（1）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/23/仿《开眼App》轮播图动画/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="X.Sation">
@@ -272,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">App开发者需要掌握的底层知识（1）</h1>
+          <h1 class="post-title" itemprop="name headline">仿《开眼App》轮播图动画</h1>
         
 
         <div class="post-meta">
@@ -284,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-12T23:36:28+08:00">
-                2017-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T08:50:25+08:00">
+                2017-08-23
               </time>
             
 
@@ -307,8 +309,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/App开发者需要掌握的底层知识/" itemprop="url" rel="index">
-                    <span itemprop="name">App开发者需要掌握的底层知识</span>
+                  <a href="/categories/view/" itemprop="url" rel="index">
+                    <span itemprop="name">view</span>
                   </a>
                 </span>
 
@@ -346,63 +348,12 @@
       
 
       
-        <p>App开发者需要掌握的底层知识:</p>
-<ul>
-<li><p>Binder</p>
-</li>
-<li><p>AIDL</p>
-</li>
-<li><p>AMS</p>
-</li>
-<li><p>Activity</p>
-</li>
-<li><p>Service</p>
-</li>
-<li><p>ContentProvider</p>
-</li>
-<li><p>匿名共享内存</p>
-</li>
-<li><p>BroadcastReceiver</p>
-</li>
-<li><p>PMS及App安装过程</p>
-</li>
-</ul>
-<p>  以上为该系列所包括的，除此之外还包括:</p>
-<ul>
-<li><p>View和ViewGroup</p>
-</li>
-<li><p>Message、Looper和Handler</p>
-</li>
-<li><p>权限管理</p>
-</li>
-<li><p>Android SDK工具内部原理</p>
-</li>
-</ul>
-<p>以上即可</p>
-<h1 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h1><p>对于binder，不需要了解具体的实现，它涉及到了C++层面</p>
-<p>binder是为了解决进程间通讯</p>
-<ol>
-<li>Binder可以分为client和server两个进程，可以粗略的认为，发消息的一端就是binder client，接受消息的一端就是binder server。AIDL、四大组件和AMS之间的通讯，其实就是binder两个进程之间的通讯。</li>
-</ol>
-<h1 id="AIDL与AMS相关"><a href="#AIDL与AMS相关" class="headerlink" title="AIDL与AMS相关"></a>AIDL与AMS相关</h1><p>一个aidl文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">interface IComputer &#123;</div><div class="line">    int add(int a, long b);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>make项目之后，会自动生成一个java文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">interface IComputer extends IInterface&#123;</div><div class="line">  </div><div class="line">  public abstract class Stub extends Binder implements IComputer&#123;</div><div class="line">    </div><div class="line">    public IComputer asInterface(IBinder ibinder)&#123;</div><div class="line">      //Stub表示对于IComputer具体的实现</div><div class="line">      //如果stub的定义与使用在同一进程，则直接返回this</div><div class="line">      //如果不在同一进程，new一个代理类，并返回</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public class Proxy implements IComputer&#123;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在服务的定义IComputer的具体实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class Computer extends IComputer.Stub&#123;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public int add(int a, long b) throws RemoteException &#123;</div><div class="line">            return 0;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>在客户端，或者服务端使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IComputer.Stub.asInterface(iBinder).add(1,2);</div></pre></td></tr></table></figure>
-<p>asInterface这个方法被调动的时候，如果是在本地，从本地取出IComputer，如果不在一个进程中，则创建一个proxy，并且返回，然后执行的方法就是proxy的方法。</p>
-<hr>
-<p>类比上面：</p>
-<p>IActivityManager =&gt; IComputer</p>
-<p>ActivityManagerNative =&gt; IComputer.Stub</p>
-<p>ActivityManagerProxy =&gt; Proxy</p>
-<blockquote>
-<p>ActivityManagerNative和ActivityManagerProxy都是针对使用者这一端的，ActivityManagerServer是在服务端的，它继承自ActivityManagerNative</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ActivityManagerNative.asInterface().startActivity();</div></pre></td></tr></table></figure>
-<p>如果asInterface返回的是AMN，说明服务端和客户端是在同一个进程中的，如果返回的是AMP，说明不是在同一个进程中，AMP中的方法（startActivity）是把数据写入到另一个进程（AMS那边）,然后ams那边计算出结果，然后写入到amp这端</p>
+        <p>写了一晚上，写到电脑没电，没实现，总是有点小问题，睡觉前想了想，果然思路清晰，早上来公司几分钟搞定</p>
+<p>先上效果图</p>
+<p><img src="/pic/lunbotu.gif" alt=""></p>
+<p>给viewpager设置PageTransformer</p>
+<p><strong><em>真的炒鸡简单呀，日了狗了</em></strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by xuekai on 2017/8/22.</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeBannerTransformer</span> : <span class="type">ViewPager.PageTransformer &#123;</span></span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transformPage</span><span class="params">(page: <span class="type">View</span>?, position: <span class="type">Float</span>)</span></span> &#123;</div><div class="line">        <span class="keyword">val</span> width: <span class="built_in">Int</span> = page?.width!!</div><div class="line">        <span class="comment">//以向左滑动为例</span></div><div class="line">        <span class="keyword">if</span> (position &lt;= <span class="number">0</span>) &#123;<span class="comment">//中间的</span></div><div class="line">            page?.scrollX = (position * width).toInt() / <span class="number">4</span> * <span class="number">3</span></div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">1</span>) &#123;<span class="comment">//右侧的</span></div><div class="line">            page?.scrollX = (position * width).toInt() / <span class="number">4</span> * <span class="number">3</span></div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -439,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/06/版本控制学习笔记/" rel="next" title="版本控制学习笔记">
-                <i class="fa fa-chevron-left"></i> 版本控制学习笔记
+              <a href="/2017/08/22/kotlin-RxJava实现逐字蹦出的TextView/" rel="next" title="kotlin+RxJava实现逐字蹦出的TextView">
+                <i class="fa fa-chevron-left"></i> kotlin+RxJava实现逐字蹦出的TextView
               </a>
             
           </div>
@@ -448,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/14/TV开发下拉加载更多遇到的坑/" rel="prev" title="TV开发下拉加载更多遇到的坑">
-                TV开发下拉加载更多遇到的坑 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,17 +445,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/favicon.ico"
@@ -581,22 +519,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Binder"><span class="nav-number">1.</span> <span class="nav-text">Binder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AIDL与AMS相关"><span class="nav-number">2.</span> <span class="nav-text">AIDL与AMS相关</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
