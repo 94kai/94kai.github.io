@@ -1,0 +1,819 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Activity的声明周期和启动模式Activity生命周期的分析从两种情况来分析  典型情况（用户正常参与的情况） 异常情况（由于内存不足，被系统杀掉、Configuration改变等）  典型情况下的生命周期分析 onPause不能太耗时，因为上一个Activity执行完之后 下个Activity的onCreate/onStart/onResume/onResume才能执行，所以不要在onPa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发艺术一">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/Android开发艺术一/index.html">
+<meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="Activity的声明周期和启动模式Activity生命周期的分析从两种情况来分析  典型情况（用户正常参与的情况） 异常情况（由于内存不足，被系统杀掉、Configuration改变等）  典型情况下的生命周期分析 onPause不能太耗时，因为上一个Activity执行完之后 下个Activity的onCreate/onStart/onResume/onResume才能执行，所以不要在onPa">
+<meta property="og:updated_time" content="2017-09-09T14:39:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发艺术一">
+<meta name="twitter:description" content="Activity的声明周期和启动模式Activity生命周期的分析从两种情况来分析  典型情况（用户正常参与的情况） 异常情况（由于内存不足，被系统杀掉、Configuration改变等）  典型情况下的生命周期分析 onPause不能太耗时，因为上一个Activity执行完之后 下个Activity的onCreate/onStart/onResume/onResume才能执行，所以不要在onPa">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/06/Android开发艺术一/"/>
+
+
+
+
+
+  <title>Android开发艺术一 | X.Sation's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">X.Sation's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            目录
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/Android开发艺术一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android开发艺术一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:26:22+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Activity的声明周期和启动模式"><a href="#Activity的声明周期和启动模式" class="headerlink" title="Activity的声明周期和启动模式"></a>Activity的声明周期和启动模式</h1><h2 id="Activity生命周期的分析"><a href="#Activity生命周期的分析" class="headerlink" title="Activity生命周期的分析"></a>Activity生命周期的分析</h2><p>从两种情况来分析</p>
+<ul>
+<li>典型情况（用户正常参与的情况）</li>
+<li>异常情况（由于内存不足，被系统杀掉、Configuration改变等）</li>
+</ul>
+<h3 id="典型情况下的生命周期分析"><a href="#典型情况下的生命周期分析" class="headerlink" title="典型情况下的生命周期分析"></a>典型情况下的生命周期分析</h3><ul>
+<li><p>onPause不能太耗时，因为上一个Activity执行完之后 下个Activity的onCreate/onStart/onResume/onResume才能执行，所以不要在onPause中执行耗时才做，使新的Activity尽快切到前台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">从Activity1到Activity2</div><div class="line">09-06 20:56:55.190 com.xk.chapter1 D/Activity1: onCreate--&gt;</div><div class="line">09-06 20:56:55.210 com.xk.chapter1 D/Activity1: onStart--&gt;</div><div class="line">09-06 20:56:55.210 com.xk.chapter1 D/Activity1: onResume--&gt;</div><div class="line">09-06 20:56:59.500 com.xk.chapter1 D/Activity1: onPause耗时操作开始--&gt;</div><div class="line">09-06 20:57:01.510 com.xk.chapter1 D/Activity1: onPause耗时操作结束--&gt;</div><div class="line">												Activity2出现</div><div class="line">09-06 20:57:01.520 com.xk.chapter1 D/Activity2: onCreate--&gt;</div><div class="line">09-06 20:57:01.520 com.xk.chapter1 D/Activity2: onStart--&gt;</div><div class="line">09-06 20:57:01.520 com.xk.chapter1 D/Activity2: onResume--&gt;</div><div class="line">09-06 20:57:01.990 com.xk.chapter1 D/Activity1: onStop--&gt;</div><div class="line"></div><div class="line">从Activity2返回Activity1</div><div class="line">09-06 21:01:13.490 com.xk.chapter1 D/Activity2: onPause耗时操作开始--&gt;</div><div class="line">09-06 21:01:15.490 com.xk.chapter1 D/Activity2: onPause耗时操作结束--&gt;</div><div class="line">												Activity1</div><div class="line">09-06 21:01:15.490 com.xk.chapter1 D/Activity1: onRestart--&gt;</div><div class="line">09-06 21:01:15.490 com.xk.chapter1 D/Activity1: onStart--&gt;</div><div class="line">09-06 21:01:15.490 com.xk.chapter1 D/Activity1: onResume--&gt;</div><div class="line">09-06 21:01:15.890 com.xk.chapter1 D/Activity2: onStop--&gt;</div><div class="line">09-06 21:01:15.890 com.xk.chapter1 D/Activity2: onDestroy--&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>onStop可以做一些稍微重量级的操作，不过也别太耗时</p>
+</li>
+<li><p>onDestory中可以做资源的释放等操作</p>
+</li>
+<li><p>弹出一个新的Activity，旧的会调onPause-&gt;onStop，特殊的，如果新的Activity是透明主题，那么旧的Activity不会调用onStop，因为它仅仅是失去了焦点，无法交互，还是可见的</p>
+</li>
+<li><p>onStart、onStop是从是否可见角度来说的，onPause和onResume是从是否位于前台（可交互）角度来说的，除此之外没啥区别。注意第一条。。。</p>
+</li>
+<li><p>启动Activity的请求由Instrumentation来处理，它通过Binder向AMS发送请求，AMS内部维护着一个ActivityStack并且负责栈内Activity的状态同步，AMS通过ActivityThread去同步Activity的状态，从而完成生命周期的回调</p>
+</li>
+</ul>
+<h3 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h3><h4 id="1-资源相关的系统配置发生改变导致Activity被杀死并重新创建"><a href="#1-资源相关的系统配置发生改变导致Activity被杀死并重新创建" class="headerlink" title="1.资源相关的系统配置发生改变导致Activity被杀死并重新创建"></a>1.资源相关的系统配置发生改变导致Activity被杀死并重新创建</h4><p>比如横屏和竖屏会使用不同的资源文件，如果屏幕方向发生改变，activity就会被销毁重建，除非我们指定不要让他销毁重建。当然，这种销毁重建会调用onSaveInstanceState来保存activity的状态，重建的时候会调用onRestoreInstanceState来恢复（onSaveInstanceState保存的数据，在onCreate和onRestoreInstanceState中可以拿到）</p>
+<p>onRestoreInstanceState会在onStart之前调用</p>
+<p>activity被意外终止的时候，activity会调用onSaveInstanceState，然后委托window，接着window委托他内部的view，也就是顶层View（一般是DecorView），然后DecorView委托子View。。。一直往下到每一个View。每个View都有onSaveInstanceState和onRestoreInstanceState方法的。这种机制类似于<strong><em>事件分发机制</em></strong></p>
+<p>onSaveInstanceState只有在activity即将被被销毁，并且有机会重建的时候才会被调用。简单理解为就是异常终止，并且会马上重建，对比按返回键销毁和旋转屏幕销毁就好理解了。actvity销毁后保存的数据在onCreate和onRestoreInstanceState中都可以拿到，但是onCreate中需要做非空判断，onRestoreInstanceState不需要，因为onRestoreInstanceState一调用，一定是有数据需要恢复了</p>
+<p>按Home键或者启动新Activity仍然会单独触发onSaveInstanceState的调用。因为Home之后或者新的activity出现之后，旧的activity到了后台，都有可能被杀。</p>
+<h4 id="2-资源内存不足导致低优先级Activity被杀"><a href="#2-资源内存不足导致低优先级Activity被杀" class="headerlink" title="2.资源内存不足导致低优先级Activity被杀"></a>2.资源内存不足导致低优先级Activity被杀</h4><p>activity的优先级</p>
+<ul>
+<li>前台Activity</li>
+<li>可见但非前台，比如弹出dialog，我的理解是onPause之后的，不过不一定对，有待探究</li>
+<li>后台Activity，我的理解是onStop之后的，任玉刚书中说的是暂停后的，感觉有歧义，不太确定，有待探究</li>
+</ul>
+<p>如果一个进程中没有四大组件在执行，很快会被杀，所以后台任务一般要在service中运行。我的理解是，如果在activity中开一个线程去做后台任务，activity不在前台的时候就容易被杀，比如回到桌面</p>
+<p>如果不想在屏幕旋转后重建activity可以在清单文件中指定configChanges属性，orientation、keyboardHidden，API13之后还需要指定screenSize。去年学这块就是死记，其实现在看来，所有的config（具体查表）改变都会导致Activity重建，这里配置之后，被配置的选项改变不会使activity重建，但会回调onConfigurationChange方法，通知我们改变了，然后根据自己的需求做一些事情就好了。</p>
+<h2 id="Activity的启动模式"><a href="#Activity的启动模式" class="headerlink" title="Activity的启动模式"></a>Activity的启动模式</h2><h3 id="Activity的LaunchMode"><a href="#Activity的LaunchMode" class="headerlink" title="Activity的LaunchMode"></a>Activity的LaunchMode</h3><p>当一个任务栈中没有activity的时候，这个栈就会被回收</p>
+<p>几种启动模式：</p>
+<ul>
+<li><p>standard</p>
+</li>
+<li><p>singleTop</p>
+<p>栈顶复用，当被复用的时候，会调用onNewIntent，参数中可以取到启动新activity携带的intent，并且onCreate、onStart不会被调用</p>
+</li>
+<li><p>singleTask</p>
+<p>被启动的activity查看是否存在他想要的任务栈，如果存在，就是那样了。。。不存在，就创建任务栈（默认跟启动他的context一样，可以通过taskaffinity指定）</p>
+</li>
+<li><p>singleInstance</p>
+</li>
+</ul>
+<blockquote>
+<p>adb shell dumpsys activity 查看栈信息</p>
+</blockquote>
+<p>启动一个activity的时候，一般新的activity会在调用startactivity的context所在的任务栈中，但是applicationcontext不存在于任务栈，所以需要为新的activity指定FLAG_ACTIVITY_NEW_TASK标记，不明白为什么在清单文件中指定不行</p>
+<p><strong>TaskAffinity</strong>（任务相关性）可以指定一个activity所需的栈名（默认为他的包名），他只能和singleTask和allowTaskRepareniting配合使用，其他情况无效</p>
+<p>如果没有指定TaskAffinity，新启动的activity会继承启动他activity的栈(singleInstance会进入新的栈，但是实验发现，栈名是一样的，不过不是一个对象，相当于创建一个新的栈名相同的栈)</p>
+<p>allowTaskReparenting可以指明一个activity</p>
+<p>onNewIntent被调用的那些情况下，onCreate、onStart不会被调用</p>
+<h3 id="Activity的flags"><a href="#Activity的flags" class="headerlink" title="Activity的flags"></a>Activity的flags</h3><blockquote>
+<p>摘自Android开发艺术图书勘误：第1.2.2小节中，Activity的Flags，这一节的内容直接翻译了Android官方文档（<a href="http://developer.android.com/guide/components/tasks-and-back-stack.html#TaskLaunchModes" target="_blank" rel="external">http://developer.android.com/guide/components/tasks-and-back-stack.html#TaskLaunchModes</a>），但是经过实例验证，发现书中的描述不准确（或者说官方文档中的描述不准确），结论为：Flags并不能简单地等同于启动模式，这一块内容需要进一步验证。</p>
+</blockquote>
+<h3 id="IntentFilter的匹配规则"><a href="#IntentFilter的匹配规则" class="headerlink" title="IntentFilter的匹配规则"></a>IntentFilter的匹配规则</h3><p>这个直接结合生活就很好理解了</p>
+<p>action/data在intent中是set，category是add，所以就知道前两个是唯一的，category是可以配多个的</p>
+<ul>
+<li><p>action行为、动作</p>
+<ul>
+<li>在清单文件中配置的时候，action表示“我可以干什么”，所以可以配置多个：我可以展示图片、我可以展示音频</li>
+<li>在代码中指定意图的时候只能指定一个action：我将要干什么，比如我要展示图片，或者我要播放音频，则分别跳转到相应的activity，不能我又要播放音频又要展示图片</li>
+<li>所以action就是清单文件中配置多个，指定意图的时候只能制定一个</li>
+</ul>
+</li>
+<li><p>category分类</p>
+<ul>
+<li>在清单文件中配置的时候，配置我属于什么什么，比如：我属于默认分类、运动类、户外类、轮滑类等（注意，这里最好指明自己属于默认类，这样在查找的时候，别人都能找到）</li>
+<li>在代码中指定意图的时候可以指定我要：运动类并且是户外类，或者轮滑类（注意，系统会自动加上默认类）</li>
+<li>所以，代码中指明的类别，一定要在清单文件中指明，比如一个activity属于默认分类、运动类、户外类、轮滑类，在代码中我可以直接找运动或者运动以及户外，但是如果我要找游戏，肯定是找不到了<ul>
+<li>data数据形式</li>
+<li>这个跟action类似，他是根据数据的规则来匹配的，action是我要找到”可以干什么”的activity，data是我要找到“可以接收该data”的activity</li>
+<li>data主要分为URI和mimeType两部分，一个代表资源位置，一个代表资源类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>对于Service和BroadcastReceiver，这套匹配规则也适用，不过对于Service，官方推荐使用显示意图</p>
+<p>在使用隐式意图的时候，最好先做个判断，判断是否有可以匹配的activity，具体方法查就行了；在清单文件中配置category的时候，最好配置上default，使得intent更容易匹配它，因为每个intent都会默认加上default</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/04/kotlin仿《开眼》/" rel="next" title="kotlin仿《开眼》">
+                <i class="fa fa-chevron-left"></i> kotlin仿《开眼》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/favicon.ico"
+               alt="X.Sation" />
+          <p class="site-author-name" itemprop="name">X.Sation</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kaikaixue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3179322384/info" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity的声明周期和启动模式"><span class="nav-number">1.</span> <span class="nav-text">Activity的声明周期和启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity生命周期的分析"><span class="nav-number">1.1.</span> <span class="nav-text">Activity生命周期的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#典型情况下的生命周期分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">典型情况下的生命周期分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况下的生命周期"><span class="nav-number">1.1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-资源相关的系统配置发生改变导致Activity被杀死并重新创建"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.资源相关的系统配置发生改变导致Activity被杀死并重新创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-资源内存不足导致低优先级Activity被杀"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2.资源内存不足导致低优先级Activity被杀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">1.2.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的LaunchMode"><span class="nav-number">1.2.1.</span> <span class="nav-text">Activity的LaunchMode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的flags"><span class="nav-number">1.2.2.</span> <span class="nav-text">Activity的flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentFilter的匹配规则"><span class="nav-number">1.2.3.</span> <span class="nav-text">IntentFilter的匹配规则</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X.Sation</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
