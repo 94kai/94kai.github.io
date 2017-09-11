@@ -93,13 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta name="description" content="之前看java8，书中几句话，一直迷迷糊糊，今天跟同学聊了聊，终于有了新的理解。  经典的java程序只能利用一个核，其他的核都浪费了  why?我们平时开发中明明用了多线程，明明还根据CPU核指定最大线程数，难道都是摆设？书中还说“java 里面并行很难，和synchronized相关的玩意儿都容易出问题”。于是我自圆其说，或许跟这个有关系。 其实我们平时确实用到了多线程，比如在socket开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于java8并发编程的一点理解">
+<meta property="og:url" content="http://yoursite.com/2017/09/11/关于java8并发编程的一点理解/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:updated_time" content="2017-07-02T10:49:36.000Z">
+<meta property="og:description" content="之前看java8，书中几句话，一直迷迷糊糊，今天跟同学聊了聊，终于有了新的理解。  经典的java程序只能利用一个核，其他的核都浪费了  why?我们平时开发中明明用了多线程，明明还根据CPU核指定最大线程数，难道都是摆设？书中还说“java 里面并行很难，和synchronized相关的玩意儿都容易出问题”。于是我自圆其说，或许跟这个有关系。 其实我们平时确实用到了多线程，比如在socket开发">
+<meta property="og:updated_time" content="2017-09-11T12:59:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="关于java8并发编程的一点理解">
+<meta name="twitter:description" content="之前看java8，书中几句话，一直迷迷糊糊，今天跟同学聊了聊，终于有了新的理解。  经典的java程序只能利用一个核，其他的核都浪费了  why?我们平时开发中明明用了多线程，明明还根据CPU核指定最大线程数，难道都是摆设？书中还说“java 里面并行很难，和synchronized相关的玩意儿都容易出问题”。于是我自圆其说，或许跟这个有关系。 其实我们平时确实用到了多线程，比如在socket开发">
 
 
 
@@ -127,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/11/关于java8并发编程的一点理解/"/>
 
 
 
 
 
-  <title>分类 | X.Sation's Blog</title>
+  <title>关于java8并发编程的一点理解 | X.Sation's Blog</title>
   
 
 
@@ -243,25 +246,173 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/11/关于java8并发编程的一点理解/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
 
     
-    
-      <div class="category-all-page">
-        <div class="category-all-title">
-            目前共计 10 个分类
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于java8并发编程的一点理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-11T20:51:26+08:00">
+                2017-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/一些理解/" itemprop="url" rel="index">
+                    <span itemprop="name">一些理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
         </div>
-        <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/App开发者需要掌握的底层知识/">App开发者需要掌握的底层知识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DroidPlugin/">DroidPlugin</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IPC/">IPC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/view/">view</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一些理解/">一些理解</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/企业级开发/">企业级开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发小技巧/">开发小技巧</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/踩过的坑/">踩过的坑</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读笔记/">阅读笔记</a><span class="category-list-count">2</span></li></ul>
-        </div>
-      </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前看java8，书中几句话，一直迷迷糊糊，今天跟同学聊了聊，终于有了新的理解。</p>
+<blockquote>
+<p>经典的java程序只能利用一个核，其他的核都浪费了</p>
+</blockquote>
+<p>why?我们平时开发中明明用了多线程，明明还根据CPU核指定最大线程数，难道都是摆设？书中还说“java</p>
+<p>里面并行很难，和synchronized相关的玩意儿都容易出问题”。于是我自圆其说，或许跟这个有关系。</p>
+<p>其实我们平时确实用到了多线程，比如在socket开发中，需要开一个线程去监听客户端的接入，这个线程是一定不能阻塞的，当此时要进行数据库查询时，我们一定会再开一个线程，避免阻塞socket那个线程，这就是多线程了，但是查询数据库的操作依旧是单线程的。java8的stream中的并发优势就是解决这个问题，他可以”几乎免费“的使这个数据库操作成为多线程的、并行的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/10/Android开发艺术（2）——IPC机制/" rel="next" title="Android开发艺术（2）——IPC机制">
+                <i class="fa fa-chevron-left"></i> Android开发艺术（2）——IPC机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -500,10 +651,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
