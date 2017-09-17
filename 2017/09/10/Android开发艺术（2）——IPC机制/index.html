@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什么要开启？ 1.android对每个应用的内存使用做了限制，比如16GB（当然现在版本不是了）用多进程可以扩">
+<meta name="description" content="代码地址:https://github.com/kaikaixue/DevelopArtistical  IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发艺术（2）——IPC机制">
 <meta property="og:url" content="http://yoursite.com/2017/09/10/Android开发艺术（2）——IPC机制/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什么要开启？ 1.android对每个应用的内存使用做了限制，比如16GB（当然现在版本不是了）用多进程可以扩">
-<meta property="og:updated_time" content="2017-09-11T00:59:15.000Z">
+<meta property="og:description" content="代码地址:https://github.com/kaikaixue/DevelopArtistical  IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什">
+<meta property="og:image" content="http://yoursite.com/pic/androidkaifayishu2_1.png">
+<meta property="og:updated_time" content="2017-09-17T08:18:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发艺术（2）——IPC机制">
-<meta name="twitter:description" content="IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什么要开启？ 1.android对每个应用的内存使用做了限制，比如16GB（当然现在版本不是了）用多进程可以扩">
+<meta name="twitter:description" content="代码地址:https://github.com/kaikaixue/DevelopArtistical  IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什">
+<meta name="twitter:image" content="http://yoursite.com/pic/androidkaifayishu2_1.png">
 
 
 
@@ -346,7 +348,10 @@
       
 
       
-        <h1 id="IPC简介"><a href="#IPC简介" class="headerlink" title="IPC简介"></a>IPC简介</h1><p>IPC就是进程间通讯的简称</p>
+        <blockquote>
+<p>代码地址:<a href="https://github.com/kaikaixue/DevelopArtistical" target="_blank" rel="external">https://github.com/kaikaixue/DevelopArtistical</a></p>
+</blockquote>
+<h1 id="IPC简介"><a href="#IPC简介" class="headerlink" title="IPC简介"></a>IPC简介</h1><p>IPC就是进程间通讯的简称</p>
 <p>线程是一种有限的资源</p>
 <p>Windows：剪切板、管道、油槽等进行IPC</p>
 <p>Linux：命名管道、共享内容、信号量等</p>
@@ -356,7 +361,92 @@
 <p>1.android对每个应用的内存使用做了限制，比如16GB（当然现在版本不是了）用多进程可以扩大这个内存</p>
 <p>2.可能某些模块需要运行在单独的进程等</p>
 </blockquote>
-
+<h1 id="Android中的多进程"><a href="#Android中的多进程" class="headerlink" title="Android中的多进程"></a>Android中的多进程</h1><ul>
+<li>如果两个应用跑在同一个进程中，那么可以共享data目录、组件信息、内存等，或者说他们就像是同一个应用的两部分</li>
+<li>清单文件中process可以指定全名也可以指定“：名称”，前者是全局进程，其他应用可以通过shareUID和他跑在同一个进程，后者是应用下的私有进程其他应用的组件不可以和他跑在同一进程</li>
+<li>P39这块理解有太多问题，有时间回来再看看，看是否可以理解</li>
+</ul>
+<p>android会为每个应用程序，或者说每个进程分配一个独立的虚拟机，每个之间互不干扰，比如现在有com.xk.demo和com.xk.demo:remote，两个进程，他们同时访问Demo.class这个类，其实访问的是两个不同的对象，互不干扰的。</p>
+<p>不同进程中的组件，通过内存共享数据就会失败</p>
+<p>通常会有以下几种问题：</p>
+<ul>
+<li>静态成员、单例模式失效</li>
+<li>线程同步机制失效</li>
+<li>SharedPreferences可靠性下降</li>
+<li>Application多次创建</li>
+</ul>
+<p>同一应用间的多进程其实就是相当于两个不同的应用使用shareUID的模式（毕竟Application创建了两次，所以说是两个应用也不为过）</p>
+<p>共享内存不可行了，那么就要有一些别的方法来实现进程间通讯</p>
+<h1 id="IPC基础概念"><a href="#IPC基础概念" class="headerlink" title="IPC基础概念"></a>IPC基础概念</h1><h2 id="Serializable"><a href="#Serializable" class="headerlink" title="Serializable"></a>Serializable</h2><ul>
+<li>静态成员不属于类成员，不参与序列化</li>
+<li>transient修饰的成员变量不参与序列化</li>
+<li>序列化后，会在文件中存储serializableid，反序列化的时候会和他进行比对，如果不一致，就crash，这就是为什么要写serializable的原因，防止类的结构改变后反序列化失败，当然修改了类名，字段类型等之后，无法反序列化了</li>
+</ul>
+<h2 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h2><p>User实现了parcelable，User中有Book也实现了parcelable，那么在序列化User中的Book的时候需要传入当前线程上下文的classloader，否则会报找不到类的错误</p>
+<p>二者的区别：Parcelable是android提供的，效率高，更适合android平台，但是使用起来麻烦，主要用于内存序列化中，在网络上传输之类的（进程间利用binder通信貌似需要的是Parcelable）。Serializable是java提供的，序列化的时候要做大量的io操作，会产生大量的临时变量，引起频繁的GC。在存储到本地的情况下，最好用serializable。</p>
+<h2 id="Binder"><a href="#Binder" class="headerlink" title="Binder"></a>Binder</h2><p>简单的实现了一个aidl代码（<a href="https://github.com/kaikaixue/DevelopArtistical/blob/master/chapter2/src/main/java/com/xk/chapter2/server/IBookManagerStub.java" target="_blank" rel="external">查看此处</a>）</p>
+<blockquote>
+<p>5.0之后需要显示调用service，不可以使用action、filiter的形式隐式启动</p>
+</blockquote>
+<p>最恶心的binder来了。。。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">/**</span></div><div class="line">  * ICalculate是用来做计算功能的，那么他是在服务端的，他的实现（继承自Stub）也是在服务端的，而客户端需要调用它里面的方法，需要的就是这个接口对象，该方法的作用就是把Stub转换成可以在binder中传播的接口</div><div class="line">  * 如果客户端和服务的在同一进程中，那么可以共享数据，所以直接返回这个Stub就好了，如果不在同一个进程中，就创建一个代理对象Stub.Proxy，并返回</div><div class="line">  * Cast an IBinder object into an com.xk.chapter2.ICalculate interface,</div><div class="line">  * generating a proxy if needed.</div><div class="line">  */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> com.xk.chapter2.<span class="function">ICalculate <span class="title">asInterface</span><span class="params">(android.os.IBinder obj)</span> </span>&#123;</div><div class="line">    <span class="comment">//...Stub里面的asInterface方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 该方法是服务端的方法（书上的话来说就是运行在Binder线程池，反正跟客户端不在一个进程中），只有在客户端、服务端不在一个进程的情况下才会走这里（如果在同一进程，asInterface会直接返回Stub对象，直接调用Stub里面的实现）</div><div class="line"> * 如果不在同一进程，asInterface会返回代理对象（Stub.Proxy），当客户端调用方法的时候，内部会像下面一样，把客户端的参数写入到_data,它是一个parcel（parcelable可知，这个东西可以binder中传输），然后还有一个code（code标记了调用的是接口中的哪个方法）</div><div class="line"> * 同时还有一个_reply,用来承载返回结果。然后_data、code、_reply等，这几个参数调用一个方法mRemote.transact(),很明显，这个是个远程方法，通过一系列底层实现，最后就会回调到服务端的这个onTransact方法（前面是在客户端，现在到了服务端了），然后服务端调用真实的方法实现，得到结果，写入</div><div class="line"> * 到_reply中，这里有个返回值，返回false，那么客户端的请求就会失败，可以用此来对方法权限做限制，毕竟不是所有的客户端都可以调用服务端的</div><div class="line"> * <span class="doctag">@param</span> code</div><div class="line"> * <span class="doctag">@param</span> data</div><div class="line"> * <span class="doctag">@param</span> reply</div><div class="line"> * <span class="doctag">@param</span> flags</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> * <span class="doctag">@throws</span> android.os.RemoteException</div><div class="line"> */</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTransact</span><span class="params">(<span class="keyword">int</span> code, android.os.Parcel data, android.os.Parcel reply, <span class="keyword">int</span> flags)</span> <span class="keyword">throws</span> android.os.RemoteException </span>&#123;</div><div class="line">    <span class="comment">//...Stub.onTransact()</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>说明一下：客户端线程中发起一个服务端请求，客户端线程就会被挂起，直到服务端返回数据，客户端才会继续执行，所以如果服务端的操作比较耗时，客户端应该放在子线程中去做。对于服务端，无论是否耗时，都不需要再开线程，而是要写成同步的，因为它本来就是运行在binder线程池中的。</p>
+<p><img src="/pic/androidkaifayishu2_1.png" alt=""></p>
+<p>疑问：Proxy是如何实现两个进程通讯的 没看出来</p>
+<p>在bindService的地方会创建一个ServiceConnection</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">ServiceConnection conn = new ServiceConnection() &#123;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">        //这里的service，如果是在同一进程中，为Service的onBind中返回的那个类型，如果不是同一进程，这里返回的就是BindProxy，然后调用asInterface，拿到的就是对应的IBookManager了(Service的onBind返回的对象或者根据这个BindProxy对象创建的Proxy)</div><div class="line">            iBookManager = IBookManagerStub.asInterface(service);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line"></div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<h3 id="binder死亡代理"><a href="#binder死亡代理" class="headerlink" title="binder死亡代理"></a>binder死亡代理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ServiceConnection conn = new ServiceConnection() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onServiceConnected(ComponentName name, IBinder service) &#123;</div><div class="line">        iBookManager = IBookManagerStub.asInterface(service);</div><div class="line">        service.linkToDeath(recipient,0);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onServiceDisconnected(ComponentName name) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>如上，在binder连接成功后，为它设置死亡代理，第一个参数是一个接口，当binder断开后，会回调这个接口，可以在接口里面做解除绑定的操作，然后继续重新bindService即可</p>
+<h1 id="Android中的IPC方式"><a href="#Android中的IPC方式" class="headerlink" title="Android中的IPC方式"></a>Android中的IPC方式</h1><h2 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h2><p>这个很简单，intent中可以传递它，它可以承载基本数据类型、Serializable、Parcellabled等</p>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>Windows中读写文件会给文件加上排斥锁，使得其他线程无法访问。Linux不会，android基于Linux所以也一样，所以可以同时读写一个文件，但是很明显，这样会有问题发生。</p>
+<p>记得大学时做一个App的数据缓存就用到了这个，一个进程中把一个对象序列化到本地，另一个进程中直接反序列化成对象即可。需要注意的是，这两个对象只是内容一样，本质上是两个不同的对象。</p>
+<p>对于同步性要求不太高的情况，我们是可以通过共享文件来实现多进程通讯。SharedPreferences也是文件，但是他比较特殊，他是存储在包名目录下的，而且他会在内存中有缓存策略，所以在多进程并发操作的时候就不靠谱了，很大几率会丢失数据（多进程内存是不可以共享的），所以虽然他也是文件，但是极不推荐使用。</p>
+<h2 id="Messenger"><a href="#Messenger" class="headerlink" title="Messenger"></a>Messenger</h2><p>其实就是封装的AIDL,不过使用起来比较方便，传递的是Message对象，可以承载what、arg1、arg2、Bundle、replyTo等，他的obj属性在android2.2之前不支持跨进程传输，2.2之后也仅支持系统提供的Parcelable对象。Bundle可以支持很多数据类型，不过测试发现自定义的Parcelable好像也不行。具体看代码。</p>
+<h2 id="AIDL"><a href="#AIDL" class="headerlink" title="AIDL"></a>AIDL</h2><p>Messenger就是封装的AIDL，他只适合简单的消息传递，如果有大量的并发请求，或者调用函数，就不合适了。</p>
+<p>AIDL支持：</p>
+<ul>
+<li>基本数据类型</li>
+<li>String和CharSequence</li>
+<li>List：支持吃ArrayList，并且每个元素需要被AIDL支持（注意，没了良好的控制并发读写，在服务端可以用CopyOnWriteArrayList代替ArrayList，他不是继承自ArrayList，但是不会报错，因为AIDL接受的是List接口，在传到客户端的时候，CopyOnWriteArrayList会被以ArrayList的形式转换出去）</li>
+<li>Map：支持HashMap，key、value都需要被AIDL支持</li>
+<li>Parcelable：实现了Parcelable的对象（使用的时候不论是否在同一个包内，都需要显示的import,而且还要新建一个同样名字的aidl文件）</li>
+<li>AIDL自身的接口（这个在demo中用了，可以看代码）</li>
+</ul>
+<p>除了基本数据类型，都要加上in、out、inout</p>
+<p>aidl接口只支持方法，不支持生命就静态变量</p>
+<p>客户端调用服务端方法后，会等待服务端方法执行完，服务端方法在Binder线程池中，所以如果服务端方法耗时的话，客户端就会被挂起，所以客户端要注意时间太长要开线程</p>
+<h4 id="关于断开重连："><a href="#关于断开重连：" class="headerlink" title="关于断开重连："></a>关于断开重连：</h4><ul>
+<li>设置死亡代理，前面讲过（UI线程中回调）</li>
+<li>在ServiceConnection的回调中设置（客户端的binder线程池中回调）</li>
+</ul>
+<h4 id="关于监听器："><a href="#关于监听器：" class="headerlink" title="关于监听器："></a>关于监听器：</h4><p>对象在多进程中是无法传输的（内存不共享），对象的传输本质是序列化和反序列化（实现parcelable的原因），所以当客户端设置一个监听器对象给服务端的时候，服务端解除这个监听时，对象不是一个，所以可以用系统提供的类RemoteCallbackList代替普通的List去维护监听器的集合</p>
+<h4 id="关于权限控制"><a href="#关于权限控制" class="headerlink" title="关于权限控制"></a>关于权限控制</h4><ul>
+<li>service的onbind中校验权限，然后返回binder对象或者null</li>
+<li>Stub.onTransact中返回false表示拒绝客户端请求，具体看demo</li>
+</ul>
+<p><strong>以上任何疑问直接看demo</strong></p>
+<h2 id="ContentProvider"><a href="#ContentProvider" class="headerlink" title="ContentProvider"></a>ContentProvider</h2><h3 id="关于清单文件中的注册"><a href="#关于清单文件中的注册" class="headerlink" title="关于清单文件中的注册"></a>关于清单文件中的注册</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!--内容提供者必须要注册，属于四大组件--&gt;</div><div class="line">&lt;!--authorities 匹配这个提供者的uri算是前缀吧--&gt;</div><div class="line">&lt;!--可以指定权限，也可以指定读权限、写权限（增删改查 哪个读 哪个写 很清楚）测试发现同一个app中两个进程权限控制没用?或许放在两个app就好了，懒得测试了--&gt;</div><div class="line">&lt;!--一般内容提供者用在多进程通讯中，所以我这里为provider指定了一个单独的进程，provider也可以放在其他app中，效果是一样的--&gt;</div><div class="line">&lt;provider android:name=&quot;.provider.BookProvider&quot;</div><div class="line">			android:authorities=&quot;com.xk.chapter2.provider.BookProvider&quot;</div><div class="line">            android:process=&quot;.bookprovider&quot;</div><div class="line">            android:readPermission=&quot;read&quot;</div><div class="line">            android:writePermission=&quot;write&quot; /&gt;</div></pre></td></tr></table></figure>
+<h3 id="关于Provider的定义"><a href="#关于Provider的定义" class="headerlink" title="关于Provider的定义"></a>关于Provider的定义</h3><p>注意，内容观察者底层也是通过binder实现的，但是比aidl用起来简单，他仅仅是帮助我们实现了进程间通讯，具体的数据存储、查询之类的 还是需要我们自己完成的，可以使用sqlite、sp、甚至文件 各种都无所谓，但是可能被多个进程、多个线程同时调用（想想通讯录），所以对于线程同步需要考虑，如果用的是一个sqlitehelper的话，系统以及实现了，总之视情况而定吧</p>
+<p>oncreate是被系统调用的，运行在主线程。其他几个方法是运行在binder线程池中，打印日志即可知道，代码中已经写好，详情见代码    </p>
+<p>在静态代码块中指定一些匹配规则，如下代码，然后在增删改查方法中就可以匹配了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">static UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);</div><div class="line"></div><div class="line">static &#123;</div><div class="line">    //在匹配规则中添加两条规则：uri后面的path是book的时候，可以匹配为0，user时可以匹配为1,然后在增删改查中把uri转换成对应的0、1</div><div class="line">    uriMatcher.addURI(&quot;com.xk.chapter2.provider.BookProvider&quot;, &quot;book&quot;, 0);</div><div class="line">    uriMatcher.addURI(&quot;com.xk.chapter2.provider.BookProvider&quot;, &quot;user&quot;, 1);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Nullable</div><div class="line">@Override</div><div class="line">public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) &#123;</div><div class="line">    int uriCode = uriMatcher.match(uri);</div><div class="line">    String tableName = getTableName(uriCode);//根据匹配的code，返回对应的文件名、数据库名等</div><div class="line">    // TODO: by xk 2017/9/17 15:37 这里操作数据库、文件等查询操作</div><div class="line">    Log.d(&quot;BookProvider&quot;, &quot;query--&gt;&quot; + Thread.currentThread());</div><div class="line">    return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h4><p>数据内容改变之后，可以利用notifyChange通知观察者，这个想想手机通讯录即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Nullable</div><div class="line">@Override</div><div class="line">public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) &#123;</div><div class="line">    Log.d(&quot;BookProvider&quot;, &quot;insert--&gt;&quot; + Thread.currentThread());</div><div class="line">    // TODO: by xk 2017/9/17 15:37 参照query，找到操作的表，然后存数数据</div><div class="line">    getContext().getContentResolver().notifyChange(uri, null);//通知观察者，这个uri下的数据被改变了</div><div class="line">    return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="自定义调用方法"><a href="#自定义调用方法" class="headerlink" title="自定义调用方法"></a>自定义调用方法</h4><p>使用call可以实现自定义方法调用，具体的使用方式是很灵活的，我随便写个demo，不一定准确，就是一种思路，不过一般也不这么写，随意发挥即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">//除了增删改查，还可以通过call方法实现远程进程中方法的调用，这么一来不就是跟aidl实现的效果一样了吗，还很简单，来试一试（这里只是我瞎猜的写的一种使用办法，随机应变喽）(注意该方法是在binder线程池中，阻塞没关系，但是他的调用者——客户端就需要注意了)</div><div class="line">@Nullable</div><div class="line">@Override</div><div class="line">public Bundle call(@NonNull String method, @Nullable String arg, @Nullable Bundle extras) &#123;</div><div class="line">    Bundle bundle = new Bundle();</div><div class="line"></div><div class="line">    String[] as = arg.split(&quot;a&quot;);</div><div class="line">    if (method.equals(&quot;add&quot;)) &#123;</div><div class="line">        int add = add(Integer.parseInt(as[0]), Integer.parseInt(as[1]));</div><div class="line">        bundle.putInt(&quot;result&quot;, add);</div><div class="line"></div><div class="line">    &#125; else if (method.equals(&quot;sub&quot;)) &#123;</div><div class="line">        int add = sub(Integer.parseInt(as[0]), Integer.parseInt(as[1]));</div><div class="line">        bundle.putInt(&quot;result&quot;, add);</div><div class="line">    &#125;</div><div class="line">    try &#123;</div><div class="line">        Thread.sleep(1000);</div><div class="line">    &#125; catch (InterruptedException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    return bundle;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">private int add(int a, int b) &#123;</div><div class="line">    return a + b;</div><div class="line">&#125;</div><div class="line"></div><div class="line">private int sub(int a, int b) &#123;</div><div class="line">    return a - b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是provider中的代码 ，在客户端直接像调用增删改查一样，调用call即可，三个参数的含义直接看上面这个方法就行</p>
+<h3 id="关于Provider的使用"><a href="#关于Provider的使用" class="headerlink" title="关于Provider的使用"></a>关于Provider的使用</h3><p>以下是在客户端的代码，如果provider中声明了权限，记得在清单文件中声明，测试发现，如果客户端、服务端是同一个app的不同进程，不需要声明权限（猜测：毕竟是同一个app，权限展示也是以app为基准的吧）</p>
+<ul>
+<li><p>查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Uri uri = Uri.parse(&quot;content://com.xk.chapter2.provider.BookProvider&quot;);</div><div class="line">Log.d(&quot;ProviderActivity&quot;, &quot;onClick--&gt;&quot; + Thread.currentThread());</div><div class="line">getContentResolver().query(uri, null, null, null, null);</div></pre></td></tr></table></figure>
+</li>
+<li><p>call</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Uri uri3 = Uri.parse(&quot;根据需求写&quot;);</div><div class="line">Log.d(&quot;ProviderActivity&quot;, &quot;onClick--&gt;&quot; + Thread.currentThread());</div><div class="line">Bundle add = getContentResolver().call(uri3, &quot;sub&quot;, &quot;1a2&quot;, new Bundle());</div><div class="line">Toast.makeText(this, add.getInt(&quot;result&quot;)+&quot;&quot;, Toast.LENGTH_SHORT).show();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>uri的话，后面加path，然后在provider中解析后可知要访问的数据（是book还是user），path后面还可以加别的参数，其实这只是一个约定的规范而已，随便传，然后字符串解析应该也没问题吧，不过估计没人那么干，会被同事骂的。</p>
+<h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2>
       
     </div>
 
@@ -544,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IPC简介"><span class="nav-number">1.</span> <span class="nav-text">IPC简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IPC简介"><span class="nav-number">1.</span> <span class="nav-text">IPC简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的多进程"><span class="nav-number">2.</span> <span class="nav-text">Android中的多进程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPC基础概念"><span class="nav-number">3.</span> <span class="nav-text">IPC基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Serializable"><span class="nav-number">3.1.</span> <span class="nav-text">Serializable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parcelable"><span class="nav-number">3.2.</span> <span class="nav-text">Parcelable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder"><span class="nav-number">3.3.</span> <span class="nav-text">Binder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#binder死亡代理"><span class="nav-number">3.3.1.</span> <span class="nav-text">binder死亡代理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android中的IPC方式"><span class="nav-number">4.</span> <span class="nav-text">Android中的IPC方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bundle"><span class="nav-number">4.1.</span> <span class="nav-text">Bundle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件共享"><span class="nav-number">4.2.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Messenger"><span class="nav-number">4.3.</span> <span class="nav-text">Messenger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIDL"><span class="nav-number">4.4.</span> <span class="nav-text">AIDL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于断开重连："><span class="nav-number">4.4.0.1.</span> <span class="nav-text">关于断开重连：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于监听器："><span class="nav-number">4.4.0.2.</span> <span class="nav-text">关于监听器：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于权限控制"><span class="nav-number">4.4.0.3.</span> <span class="nav-text">关于权限控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ContentProvider"><span class="nav-number">4.5.</span> <span class="nav-text">ContentProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于清单文件中的注册"><span class="nav-number">4.5.1.</span> <span class="nav-text">关于清单文件中的注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Provider的定义"><span class="nav-number">4.5.2.</span> <span class="nav-text">关于Provider的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#观察者模式"><span class="nav-number">4.5.2.1.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义调用方法"><span class="nav-number">4.5.2.2.</span> <span class="nav-text">自定义调用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Provider的使用"><span class="nav-number">4.5.3.</span> <span class="nav-text">关于Provider的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket"><span class="nav-number">4.6.</span> <span class="nav-text">Socket</span></a></li></ol></li></ol></div>
             
 
           </div>
