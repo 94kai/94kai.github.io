@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="第一次认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://git">
+<meta name="description" content="第一次真正认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="再看事件分发机制——2.3源码分析">
 <meta property="og:url" content="http://yoursite.com/2017/09/28/再看事件分发机制——2-3源码分析/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="第一次认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://git">
-<meta property="og:updated_time" content="2017-09-28T15:03:52.000Z">
+<meta property="og:description" content="第一次真正认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://g">
+<meta property="og:updated_time" content="2017-09-28T15:07:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再看事件分发机制——2.3源码分析">
-<meta name="twitter:description" content="第一次认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://git">
+<meta name="twitter:description" content="第一次真正认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。  我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来 源码地址：https://g">
 
 
 
@@ -347,7 +347,7 @@
 
       
         <blockquote>
-<p>第一次认真的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。</p>
+<p>第一次<strong>真正认真</strong>的读源码，收获不少，有疑惑的地方就去debug，虽然是android2.3的源码，现在都7.0了，不过还是很开心，谷歌的工程师真的很牛逼，点个赞。。。</p>
 </blockquote>
 <p>我把2.3、4.0、7.0的代码copy出来，放到一个java工程中，用android studio打开，可以非常方便的阅读、跳转、搜索，自我感觉比其他已知的方法要方便一些，有兴趣的可以clone下来</p>
 <p>源码地址：<a href="https://github.com/kaikaixue/AndroidSource" target="_blank" rel="external">https://github.com/kaikaixue/AndroidSource</a></p>
