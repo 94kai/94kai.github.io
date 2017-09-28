@@ -101,7 +101,7 @@
 <meta property="og:description" content="代码地址:https://github.com/kaikaixue/DevelopArtistical  IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什">
 <meta property="og:image" content="http://yoursite.com/pic/androidkaifayishu2_1.png">
 <meta property="og:image" content="http://yoursite.com/pic/ipc_ways.png">
-<meta property="og:updated_time" content="2017-09-19T13:09:50.000Z">
+<meta property="og:updated_time" content="2017-09-26T06:40:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发艺术（2）——IPC机制">
 <meta name="twitter:description" content="代码地址:https://github.com/kaikaixue/DevelopArtistical  IPC简介IPC就是进程间通讯的简称 线程是一种有限的资源 Windows：剪切板、管道、油槽等进行IPC Linux：命名管道、共享内容、信号量等 Android：继承自Linux，但是通讯方式不完全继承Linux，最有特色的是Binder  android一个应用可以开启多进程模式，为什">
@@ -423,7 +423,7 @@
 </ul>
 <h4 id="关于监听器："><a href="#关于监听器：" class="headerlink" title="关于监听器："></a>关于监听器：</h4><p>对象在多进程中是无法传输的（内存不共享），对象的传输本质是序列化和反序列化（实现parcelable的原因），所以当客户端设置一个监听器对象给服务端的时候，服务端解除这个监听时，对象不是一个，所以可以用系统提供的类RemoteCallbackList代替普通的List去维护监听器的集合</p>
 <h4 id="关于权限控制"><a href="#关于权限控制" class="headerlink" title="关于权限控制"></a>关于权限控制</h4><ul>
-<li>service的onbind中校验权限，然后返回binder对象或者null</li>
+<li>service的onbind中校验权限，然后返回binder对象或者null（onbind运行在服务端的UI线程中，不是一个binder调用，只能验证服务端的权限，所以没意义，所以不用了）</li>
 <li>Stub.onTransact中返回false表示拒绝客户端请求，具体看demo</li>
 </ul>
 <p><strong>以上任何疑问直接看demo</strong></p>
@@ -572,7 +572,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -583,7 +583,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
