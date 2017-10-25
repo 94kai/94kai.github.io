@@ -93,19 +93,16 @@
 
 
 
-<meta name="description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
+<meta name="description" content="RemoteViews的应用 桌面小部件 通知栏  PendingIntent概述根据字面意思就知道是延迟的intent，主要用来在某个事件完成后执行特定的Action。PendingIntent包含了Intent及Context，所以就算Intent所属程序结束，PendingIntent依然有效，可以在其他程序中使用。 PendingIntent一般作为参数传给某个实例，在该实例完成某个操作后">
 <meta property="og:type" content="article">
-<meta property="og:title" content="View的测量">
-<meta property="og:url" content="http://yoursite.com/2016/11/28/View的测量/index.html">
+<meta property="og:title" content="Android开发艺术（5）——理解RemoteViews">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/Android开发艺术（5）——理解RemoteViews/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
-<meta property="og:image" content="http://yoursite.com/pic/view的celiang_p1.png">
-<meta property="og:image" content="http://yoursite.com/pic/view的celiang_p2.png">
-<meta property="og:updated_time" content="2017-07-03T00:17:08.000Z">
+<meta property="og:description" content="RemoteViews的应用 桌面小部件 通知栏  PendingIntent概述根据字面意思就知道是延迟的intent，主要用来在某个事件完成后执行特定的Action。PendingIntent包含了Intent及Context，所以就算Intent所属程序结束，PendingIntent依然有效，可以在其他程序中使用。 PendingIntent一般作为参数传给某个实例，在该实例完成某个操作后">
+<meta property="og:updated_time" content="2017-10-18T06:13:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="View的测量">
-<meta name="twitter:description" content="学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。 如图二所示，前面两行好理解，第一行：一个view指定了具体的宽高">
-<meta name="twitter:image" content="http://yoursite.com/pic/view的celiang_p1.png">
+<meta name="twitter:title" content="Android开发艺术（5）——理解RemoteViews">
+<meta name="twitter:description" content="RemoteViews的应用 桌面小部件 通知栏  PendingIntent概述根据字面意思就知道是延迟的intent，主要用来在某个事件完成后执行特定的Action。PendingIntent包含了Intent及Context，所以就算Intent所属程序结束，PendingIntent依然有效，可以在其他程序中使用。 PendingIntent一般作为参数传给某个实例，在该实例完成某个操作后">
 
 
 
@@ -133,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/28/View的测量/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/Android开发艺术（5）——理解RemoteViews/"/>
 
 
 
 
 
-  <title>View的测量 | X.Sation's Blog</title>
+  <title>Android开发艺术（5）——理解RemoteViews | X.Sation's Blog</title>
   
 
 
@@ -258,7 +255,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/28/View的测量/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/Android开发艺术（5）——理解RemoteViews/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="X.Sation">
@@ -275,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">View的测量</h1>
+          <h1 class="post-title" itemprop="name headline">Android开发艺术（5）——理解RemoteViews</h1>
         
 
         <div class="post-meta">
@@ -287,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-28T21:33:00+08:00">
-                2016-11-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T09:42:17+08:00">
+                2017-10-17
               </time>
             
 
@@ -310,8 +307,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/view/" itemprop="url" rel="index">
-                    <span itemprop="name">view</span>
+                  <a href="/categories/阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读笔记</span>
                   </a>
                 </span>
 
@@ -349,10 +346,16 @@
       
 
       
-        <p>学安卓一年多了，关于view的绘制流程看过N遍，onLayout和onDraw比较简单，onMeasure一直没搞明白，大概是比较笨，理解能力太差，网上博客里的内容看了几次，也没太明白，今晚有仔细的研读了一遍任玉刚和鸿洋的博客，刚开始也没搞懂，越看越瞌睡。<br>突然看到鸿洋说的一句话，然后又想起来之前没明白的任玉刚的那个图，然后恍然大悟。<br><img src="/pic/view的celiang_p1.png" alt="view的celiang_p1"><br><img src="/pic/view的celiang_p2.png" alt="view的celiang_p2"></p>
-<p>如图二所示，前面两行好理解，<br>第一行：一个view指定了具体的宽高，XXdp，那么无论他的父容器在他的爷爷容器中是如何的，该view都是显示XXdp。<br>第二行：如果一个view是match_parent,那么他的宽高就是他爸剩余容量的大小。<br><strong>第三行：</strong>这里我之前理解错了，以为一个view设置了wrap_content之后，他的宽高就如右侧显示，当然，确实如此，但是总感觉有点疑问。看完鸿洋那句话才恍然大悟。其实这里我们也不用考虑他，因为view都说了他的宽高根据内容而定，所以他的父亲是给不了一个靠谱的答案的，所以还不如我们自己去计算。而现有的控件（TextView等）他们内部已经做了计算了。所以自定义view的时候，我们在onMeasure这块着重计算当宽高为wrap_content这种情况的宽高就好了，根据内容、边距等去计算，然后调用setMeasuredDimension即可。而对于前两种情况，一般用参数中传递过来的值（父亲给的）来设置就好了，因为前两种情况中父亲给的值是比较靠谱的。</p>
-<p>附上参考链接：1.<a href="http://blog.csdn.net/singwhatiwanna/article/details/38426471" target="_blank" rel="external">任玉刚</a></p>
-<p>2.<a href="http://blog.csdn.net/lmj623565791/article/details/38339817" target="_blank" rel="external">鸿洋</a></p>
+        <h1 id="RemoteViews的应用"><a href="#RemoteViews的应用" class="headerlink" title="RemoteViews的应用"></a>RemoteViews的应用</h1><ul>
+<li>桌面小部件</li>
+<li>通知栏</li>
+</ul>
+<h2 id="PendingIntent概述"><a href="#PendingIntent概述" class="headerlink" title="PendingIntent概述"></a>PendingIntent概述</h2><p>根据字面意思就知道是延迟的intent，主要用来<strong>在某个事件完成后执行特定的Action</strong>。PendingIntent包含了Intent及Context，所以就算Intent所属程序结束，PendingIntent依然有效，可以在其他程序中使用。</p>
+<p>PendingIntent一般作为参数传给某个实例，在该实例完成某个操作后自动执行PendingIntent上的Action，也可以通过PendingIntent的send函数手动执行，并可以在send函数中设置OnFinished表示send成功后执行的动作。</p>
+<p>PendingIntent用于描述Intent及其最终的行为.<br>​        你可以通过getActivity(Context context, int requestCode, Intent intent, int flags)系列方法从系统取得一个用于启动一个Activity的PendingIntent对象,</p>
+<p>​       可以通过getService(Context context, int requestCode, Intent intent, int flags)方法从系统取得一个用于启动一个Service的PendingIntent对象</p>
+<p>​        可以通过getBroadcast(Context context, int requestCode, Intent intent, int flags)方法从系统取得一个用于向BroadcastReceiver的Intent广播的PendingIntent对象</p>
+<p>​         返回的PendingIntent可以递交给别的应用程序，然后继续处理。这里的话你可以稍后才处理PendingIntent中描述的Intent及其最终行为。</p>
 
       
     </div>
@@ -389,8 +392,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/27/事件分发——ViewGroup篇/" rel="next" title="事件分发——ViewGroup篇">
-                <i class="fa fa-chevron-left"></i> 事件分发——ViewGroup篇
+              <a href="/2017/10/17/Android开发艺术（6）—— Android的Drawable/" rel="next" title="Android开发艺术（6）—— Android的Drawable">
+                <i class="fa fa-chevron-left"></i> Android开发艺术（6）—— Android的Drawable
               </a>
             
           </div>
@@ -399,8 +402,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/09/动手撸一个折线图/" rel="prev" title="动手撸一个折线图">
-                动手撸一个折线图 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/18/Android开发艺术（8）——理解Window和WindowManager/" rel="prev" title="Android开发艺术探索（8）——理解Window和WindowManager">
+                Android开发艺术探索（8）——理解Window和WindowManager <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -448,8 +451,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/favicon.ico"
@@ -522,6 +534,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RemoteViews的应用"><span class="nav-number">1.</span> <span class="nav-text">RemoteViews的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PendingIntent概述"><span class="nav-number">1.1.</span> <span class="nav-text">PendingIntent概述</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

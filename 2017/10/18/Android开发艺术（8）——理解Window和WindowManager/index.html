@@ -93,12 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="X.Sation&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2017/03/index.html">
+<meta name="description" content="Window的内部机制Window是一个抽象的概念，每个Window都对应一个View和ViewRootImpl（结合第三章的内容，activity下的window里就有decorview）。ViewRootImpl是View和Window的桥梁。 Window并不存在，他是以View的形式存在的，看WindowManager的三个方法就知道了：  addView removeView updat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发艺术探索（8）——理解Window和WindowManager">
+<meta property="og:url" content="http://yoursite.com/2017/10/18/Android开发艺术（8）——理解Window和WindowManager/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="Window的内部机制Window是一个抽象的概念，每个Window都对应一个View和ViewRootImpl（结合第三章的内容，activity下的window里就有decorview）。ViewRootImpl是View和Window的桥梁。 Window并不存在，他是以View的形式存在的，看WindowManager的三个方法就知道了：  addView removeView updat">
+<meta property="og:updated_time" content="2017-10-20T02:16:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="X.Sation&#39;s Blog">
+<meta name="twitter:title" content="Android开发艺术探索（8）——理解Window和WindowManager">
+<meta name="twitter:description" content="Window的内部机制Window是一个抽象的概念，每个Window都对应一个View和ViewRootImpl（结合第三章的内容，activity下的window里就有decorview）。ViewRootImpl是View和Window的桥梁。 Window并不存在，他是以View的形式存在的，看WindowManager的三个方法就知道了：  addView removeView updat">
 
 
 
@@ -126,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/03/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/18/Android开发艺术（8）——理解Window和WindowManager/"/>
 
 
 
 
 
-  <title>归档 | X.Sation's Blog</title>
+  <title>Android开发艺术探索（8）——理解Window和WindowManager | X.Sation's Blog</title>
   
 
 
@@ -157,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -241,66 +245,179 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 30 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/18/Android开发艺术（8）——理解Window和WindowManager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android开发艺术探索（8）——理解Window和WindowManager</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T17:54:02+08:00">
+                2017-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <h1 id="Window的内部机制"><a href="#Window的内部机制" class="headerlink" title="Window的内部机制"></a>Window的内部机制</h1><p>Window是一个抽象的概念，每个Window都对应一个View和ViewRootImpl（结合第三章的内容，activity下的window里就有decorview）。ViewRootImpl是View和Window的桥梁。</p>
+<p>Window并不存在，他是以View的形式存在的，看WindowManager的三个方法就知道了：</p>
+<ul>
+<li>addView</li>
+<li>removeView</li>
+<li>updateViewLayout</li>
+</ul>
+<p>所以以前我的理解是错了，我一直觉得addView是把View添加到Window上，其实不是，其实是添加了一个包含View的window到Display中</p>
+<h2 id="WindowManager-addView"><a href="#WindowManager-addView" class="headerlink" title="WindowManager.addView"></a>WindowManager.addView</h2><p>Window的添加过程是通过WindowManager来添加的，WindowManager的实现类WindowManagerImpl没有直接操作，而是委托给WindowManagerGlobal实现的，典型的桥接模式。</p>
+<p>在WindowManagerGlobal的addView内部，调用ViewRootImpl.setView，然后里面调用mWindowSession.addToDisplay，把Window添加到display，具体的添加逻辑是通过ipc，让windowmanagerservice完成的</p>
+<h1 id="Window的创建过程"><a href="#Window的创建过程" class="headerlink" title="Window的创建过程"></a>Window的创建过程</h1><p>View是android视图的呈现形式，View不可以单独存在，他需要依托Window这一抽象的概念，有View的地方，就有Window。Activity、Dialog、Toast以及PopUpWindow、菜单等，都对应一个Window</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/17/Android开发艺术（5）——理解RemoteViews/" rel="next" title="Android开发艺术（5）——理解RemoteViews">
+                <i class="fa fa-chevron-left"></i> Android开发艺术（5）——理解RemoteViews
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
         </div>
       
-      
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/02/AndroidStudio查看快速跳转Hide代码/" itemprop="url">
-              
-                <span itemprop="name">AndroidStudio查看快速跳转Hide代码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-02T23:22:16+08:00"
-              content="2017-03-02" >
-          03-02
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -308,6 +425,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -327,8 +448,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/favicon.ico"
@@ -401,6 +531,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Window的内部机制"><span class="nav-number">1.</span> <span class="nav-text">Window的内部机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WindowManager-addView"><span class="nav-number">1.1.</span> <span class="nav-text">WindowManager.addView</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Window的创建过程"><span class="nav-number">2.</span> <span class="nav-text">Window的创建过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -534,11 +680,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   

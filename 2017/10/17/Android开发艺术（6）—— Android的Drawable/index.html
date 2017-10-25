@@ -93,12 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="X.Sation&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2017/03/index.html">
+<meta name="description" content="Drawable表示的是一种可以在canvas上绘制的抽象的概念，颜色、图片都可以是Drawable。他比View的优点是，相对于自定义View，难度低。非图片类型的Drawable占用空间小。  一般的用处：  作为View的背景 作为ImageView中的图像  drawable没有宽高，因为他会根据View的大小去拉伸，但是他可能会有内部宽高，可以通过getIntrinsicWidth获取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发艺术（6）—— Android的Drawable">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/Android开发艺术（6）—— Android的Drawable/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="Drawable表示的是一种可以在canvas上绘制的抽象的概念，颜色、图片都可以是Drawable。他比View的优点是，相对于自定义View，难度低。非图片类型的Drawable占用空间小。  一般的用处：  作为View的背景 作为ImageView中的图像  drawable没有宽高，因为他会根据View的大小去拉伸，但是他可能会有内部宽高，可以通过getIntrinsicWidth获取">
+<meta property="og:updated_time" content="2017-10-17T01:40:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="X.Sation&#39;s Blog">
+<meta name="twitter:title" content="Android开发艺术（6）—— Android的Drawable">
+<meta name="twitter:description" content="Drawable表示的是一种可以在canvas上绘制的抽象的概念，颜色、图片都可以是Drawable。他比View的优点是，相对于自定义View，难度低。非图片类型的Drawable占用空间小。  一般的用处：  作为View的背景 作为ImageView中的图像  drawable没有宽高，因为他会根据View的大小去拉伸，但是他可能会有内部宽高，可以通过getIntrinsicWidth获取">
 
 
 
@@ -126,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/03/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/Android开发艺术（6）—— Android的Drawable/"/>
 
 
 
 
 
-  <title>归档 | X.Sation's Blog</title>
+  <title>Android开发艺术（6）—— Android的Drawable | X.Sation's Blog</title>
   
 
 
@@ -157,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -241,66 +245,187 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 30 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/Android开发艺术（6）—— Android的Drawable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android开发艺术（6）—— Android的Drawable</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T08:58:57+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/阅读笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">阅读笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <blockquote>
+<p>Drawable表示的是一种可以在canvas上绘制的抽象的概念，颜色、图片都可以是Drawable。他比View的优点是，相对于自定义View，难度低。非图片类型的Drawable占用空间小。</p>
+</blockquote>
+<p>一般的用处：</p>
+<ul>
+<li>作为View的背景</li>
+<li>作为ImageView中的图像</li>
+</ul>
+<p>drawable没有宽高，因为他会根据View的大小去拉伸，但是他可能会有内部宽高，可以通过getIntrinsicWidth获取。</p>
+<p>对于图片drawable，他的内部宽高就是图片的宽高，对于颜色drawable是没有内部宽高的概念</p>
+<h1 id="selecter"><a href="#selecter" class="headerlink" title="selecter"></a>selecter</h1><p>选择器，系统会从上至下去匹配，匹配到一个之后就不会再往下走了。所以默认情况（任何情况都会匹配上）要放在最后面</p>
+<h1 id="关于自定义Drawable"><a href="#关于自定义Drawable" class="headerlink" title="关于自定义Drawable"></a>关于自定义Drawable</h1><p>自定义的Drawable不能通过xml去写，所以一般也不用自定义。</p>
+<p>原理很简单就是通过draw方法，继承自Drawable就知道了</p>
+<p>如果有固有大小，需要重写getIntrinsicWidth()方法，比如图片的话是图片的大小。如果不重写就是-1</p>
+<p>需要注意，内部大小不等于实际大小，实际大小通过getBounds获取，一般跟view相同</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/Android开发艺术（4）——View的工作原理/" rel="next" title="Android开发艺术（4）——View的工作原理">
+                <i class="fa fa-chevron-left"></i> Android开发艺术（4）——View的工作原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/17/Android开发艺术（5）——理解RemoteViews/" rel="prev" title="Android开发艺术（5）——理解RemoteViews">
+                Android开发艺术（5）——理解RemoteViews <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
         </div>
       
-      
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/02/AndroidStudio查看快速跳转Hide代码/" itemprop="url">
-              
-                <span itemprop="name">AndroidStudio查看快速跳转Hide代码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-02T23:22:16+08:00"
-              content="2017-03-02" >
-          03-02
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -308,6 +433,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -327,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/favicon.ico"
@@ -401,6 +539,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#selecter"><span class="nav-number">1.</span> <span class="nav-text">selecter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于自定义Drawable"><span class="nav-number">2.</span> <span class="nav-text">关于自定义Drawable</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -534,11 +688,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
