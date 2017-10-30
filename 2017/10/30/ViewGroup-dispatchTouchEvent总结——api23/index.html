@@ -93,13 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta name="description" content="重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，地址  前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。 事件已经分发到某个viewgroup了  DOWN事件进来，清空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViewGroup#DispatchTouchEvent总结——api23">
+<meta property="og:url" content="http://yoursite.com/2017/10/30/ViewGroup-dispatchTouchEvent总结——api23/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
-<meta property="og:updated_time" content="2017-07-02T10:49:36.000Z">
+<meta property="og:description" content="重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，地址  前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。 事件已经分发到某个viewgroup了  DOWN事件进来，清空">
+<meta property="og:updated_time" content="2017-10-30T13:31:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="ViewGroup#DispatchTouchEvent总结——api23">
+<meta name="twitter:description" content="重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，地址  前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。 事件已经分发到某个viewgroup了  DOWN事件进来，清空">
 
 
 
@@ -127,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/30/ViewGroup-dispatchTouchEvent总结——api23/"/>
 
 
 
 
 
-  <title>分类 | X.Sation's Blog</title>
+  <title>ViewGroup#DispatchTouchEvent总结——api23 | X.Sation's Blog</title>
   
 
 
@@ -243,25 +246,205 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/30/ViewGroup-dispatchTouchEvent总结——api23/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
 
     
-    
-      <div class="category-all-page">
-        <div class="category-all-title">
-            目前共计 11 个分类
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ViewGroup#DispatchTouchEvent总结——api23</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-30T18:00:25+08:00">
+                2017-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/源码阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">源码阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
         </div>
-        <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/App开发者需要掌握的底层知识/">App开发者需要掌握的底层知识</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/DroidPlugin/">DroidPlugin</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/IPC/">IPC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/view/">view</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一些理解/">一些理解</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/企业级开发/">企业级开发</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/开发小技巧/">开发小技巧</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/源码阅读/">源码阅读</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/踩过的坑/">踩过的坑</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读笔记/">阅读笔记</a><span class="category-list-count">7</span></li></ul>
-        </div>
-      </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，<a href="https://github.com/kaikaixue/AndroidSourceForJava" target="_blank" rel="external">地址</a></p>
+</blockquote>
+<p>前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。</p>
+<p>事件已经分发到某个viewgroup了</p>
+<ul>
+<li>DOWN事件进来，清空状态（包括disallowintercept标记）</li>
+<li>为intercepted赋值<ul>
+<li>DOWN事件，根据disallowintercept标记和onItercept()，决定intercepted的值</li>
+<li>mFirstTouchTarget不为空，也就是该事件不是down事件，并且这个ViewGroup的孩子中有孩子处理了之前的事件。跟上一条一样，根据disallowintercept标记和onItercept()，决定intercepted的值</li>
+<li>不是以上两种情况，也就是非down事件，并且mFirstTouchTarget为空，也就是这个事件序列中，down已经被该ViewGroup处理，所以现在这个事件也是由这个ViewGroup处理，所以intercepted直接就是true</li>
+</ul>
+</li>
+<li>如果不拦截<ul>
+<li>如果是down<ul>
+<li>从孩子中找到可以接收事件的孩子，并且调用孩子的dispatchTouchEvent，也就是让他处理<ul>
+<li>return true，也就是孩子处理了，那就把孩子赋值给mFirstTouchTarget（TouchTarget是一个包裹了View的对象），并且把一把局部变量alreadyDispatchedToNewTouchTarget设为true，表示该事件是down，并且已经找到了处理他的孩子</li>
+<li>return false，找其他孩子，如果有一个return true，就像上一步一样，如果全是false，那么mFirstTouchTarget不会被赋值，依旧是false，alreadyDispatchedToNewTouchTarget也是false</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>上面的逻辑处理完之后来，来到这里<ul>
+<li>mFirstTouchTarget为空，表示，不管是down还是其他事件，总之就是没有孩子要处理，因为上一步中没有给mFirstTouchTarget赋值。所以直接让自己处理，调用super.dispatchtouchevent();</li>
+<li>否则，该事件序列已经有孩子处理了，但是分两种情况<ul>
+<li>这个事件是down事件，孩子已经处理了，这个可以根据alreadyDispatchedToNewTouchTarget来决定，因为alreadyDispatchedToNewTouchTarget是局部变量，此时直接让handled为true即可</li>
+<li>这个事件是非down事件，该事件序列都是让mFirstTouchTarget处理，所以该事件也是，所以调用mFirstTouchTarget.dispatchtouchevent()，让孩子处理<ul>
+<li>这里孩子可能会返回true或者false</li>
+<li>return true，孩子已经处理</li>
+<li>return false，表示孩子不愿意处理，但是不同于上面第三节中的孩子不处理，第三节中，事件是down，孩子不处理，就让该viewgroup处理，而这里是非down事件，孩子不处理，事件就消失了，return false，那么上一级viewgroup也是return false，一路向上，最后就到activity的dispatchTouchEvent了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/18/Android开发艺术（8）——理解Window和WindowManager/" rel="next" title="Android开发艺术探索（8）——理解Window和WindowManager">
+                <i class="fa fa-chevron-left"></i> Android开发艺术探索（8）——理解Window和WindowManager
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -500,10 +683,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
