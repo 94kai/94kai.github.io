@@ -1,0 +1,755 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么要上传到JCenter为了一句话依赖1234dependencies &amp;#123;    compile fileTree(include: [&amp;apos;*.jar&amp;apos;], dir: &amp;apos;libs&amp;apos;)    compile &amp;apos;com.xk:kinject:1.0.0&amp;apos;&amp;#125; 注册bintray账号既然是通过bintray上传，那得先注册b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了">
+<meta property="og:url" content="http://yoursite.com/2017/11/18/AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了/index.html">
+<meta property="og:site_name" content="X.Sation&#39;s Blog">
+<meta property="og:description" content="为什么要上传到JCenter为了一句话依赖1234dependencies &amp;#123;    compile fileTree(include: [&amp;apos;*.jar&amp;apos;], dir: &amp;apos;libs&amp;apos;)    compile &amp;apos;com.xk:kinject:1.0.0&amp;apos;&amp;#125; 注册bintray账号既然是通过bintray上传，那得先注册b">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-de53d10199e2f060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-93b9d393b095f3d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-e2380827aab0433c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-7175ef44dbada174.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-355d28d0e5a4f085.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-0dc40bac7ba1898f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4242627-2c526e318e4d1fba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-18T15:56:53.657Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了">
+<meta name="twitter:description" content="为什么要上传到JCenter为了一句话依赖1234dependencies &amp;#123;    compile fileTree(include: [&amp;apos;*.jar&amp;apos;], dir: &amp;apos;libs&amp;apos;)    compile &amp;apos;com.xk:kinject:1.0.0&amp;apos;&amp;#125; 注册bintray账号既然是通过bintray上传，那得先注册b">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4242627-de53d10199e2f060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/18/AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了/"/>
+
+
+
+
+
+  <title>AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了 | X.Sation's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">X.Sation's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            目录
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="X.Sation">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="X.Sation's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T23:55:52+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="为什么要上传到JCenter"><a href="#为什么要上传到JCenter" class="headerlink" title="为什么要上传到JCenter"></a>为什么要上传到JCenter</h1><p>为了一句话依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)</div><div class="line">    compile &apos;com.xk:kinject:1.0.0&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="注册bintray账号"><a href="#注册bintray账号" class="headerlink" title="注册bintray账号"></a>注册bintray账号</h1><p>既然是通过bintray上传，那得先注册bintray账号</p>
+<h2 id="这里有坑"><a href="#这里有坑" class="headerlink" title="这里有坑"></a>这里有坑</h2><ul>
+<li>一定要通过这个地址去注册 <a href="https://bintray.com/signup/oss" target="_blank" rel="external">https://bintray.com/signup/oss</a>，这里是个人用户注册地址</li>
+<li>邮箱不能是QQ、163等国内邮箱，最好用gmail<br><img src="http://upload-images.jianshu.io/upload_images/4242627-de53d10199e2f060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><h1 id="创建组织（Organizations）"><a href="#创建组织（Organizations）" class="headerlink" title="创建组织（Organizations）"></a>创建组织（Organizations）</h1></li>
+<li>登陆后点击右上角Edit Profile，然后选择Organizations，然后点New Organization 创建一个组织<br><img src="http://upload-images.jianshu.io/upload_images/4242627-93b9d393b095f3d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/4242627-e2380827aab0433c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/4242627-7175ef44dbada174.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><h1 id="在组织下创建Repository"><a href="#在组织下创建Repository" class="headerlink" title="在组织下创建Repository"></a>在组织下创建Repository</h1><strong>注意，是要在组织下创建Repository，也就是要先切换到组织下，这个坑坑了我挺久，如图</strong><br><img src="http://upload-images.jianshu.io/upload_images/4242627-355d28d0e5a4f085.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/4242627-0dc40bac7ba1898f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<h1 id="打开android-studio设置"><a href="#打开android-studio设置" class="headerlink" title="打开android studio设置"></a>打开android studio设置</h1><blockquote>
+<p>先简单总结一下，java-library或者android-library才可以打成aar或者jar包，然后传到jcenter。我们在一个组织下创建一个Repository，然后在Repository里将会创建N个package，一个package对应一个库，不过这个package的创建脚本去完成</p>
+<ul>
+<li>打开你的android studio项目，找到你要上传的module（一定要是java-library或者android-library）</li>
+<li>打开module下的build.gradle，在原来的基础上添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;com.android.library&apos;//也可以是java-library</div><div class="line">apply plugin: &apos;maven&apos;</div><div class="line">apply plugin: &apos;com.novoda.bintray-release&apos;</div><div class="line">android &#123;</div><div class="line">  ...</div><div class="line">&#125;</div><div class="line">//与android、dependencies在同一级</div><div class="line">publish &#123;</div><div class="line">    userOrg = &apos;xuekai&apos;// 组织名，前面说了</div><div class="line">    groupId = &apos;com.xk&apos;// 包名（跟bintray里的package不是一回事）</div><div class="line">    artifactId = &apos;kinject&apos;// library的名字 </div><div class="line">    version = &apos;1.0.0&apos;// 版本 和前面两者组合起来就是依赖的内容compile &apos;com.xk:kinject:1.0.0&apos;</div><div class="line">    description = &apos;描述信息&apos;</div><div class="line">    website = &quot;https://github.com/kaikaixue/IOCDemo&quot;//这块我猜是随便写，可能是为了展示你这个项目的地址吧，写github上的地址即可</div><div class="line">    repoName = &apos;librarys&apos;//前面说了，repository name</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line"> ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>打开项目根目录的build.gradle，添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">    </div><div class="line">    repositories &#123;</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">    dependencies &#123;</div><div class="line">        classpath &apos;com.android.tools.build:gradle:3.0.0&apos;</div><div class="line">        classpath &apos;com.novoda:bintray-release:0.5.0&apos;</div><div class="line"></div><div class="line"></div><div class="line">        // NOTE: Do not place your application dependencies here; they belong</div><div class="line">        // in the individual module build.gradle files</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        google()</div><div class="line">        jcenter()</div><div class="line">    &#125;</div><div class="line">//注释中有汉字，需要这里处理</div><div class="line">    tasks.withType(Javadoc) &#123;</div><div class="line">        options &#123;</div><div class="line">            encoding &quot;UTF-8&quot;</div><div class="line">            charSet &apos;UTF-8&apos;</div><div class="line">            links &quot;http://docs.oracle.com/javase/7/docs/api&quot;</div><div class="line">            failOnError false</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开命令行，到当前项目根路径或者直接打开androidstudio自带的Terminal即可，执行以下命令<br><code>./gradlew clean build bintrayUpload -PbintrayUser=bintray账号 -PbintrayKey=秘钥 -PdryRun=false</code></p>
+<blockquote>
+<p>秘钥在本文第三张图的API KEY选项中可以获取<br>执行该命令之后，如果提示成功，就表示上传成功了。如果失败，文末会讲，先假设成功。</p>
+<h1 id="添加到JCenter"><a href="#添加到JCenter" class="headerlink" title="添加到JCenter"></a>添加到JCenter</h1></blockquote>
+</li>
+<li>此时库已经上传到bintray了，登录bintray就可以看到<ul>
+<li>首页点击库所在的repository（注意，一定要保证当前是在某个组织下，看左上角名称就可以看出来）</li>
+<li>然后就可以看到该repository下的package，一个package代表一个库，点进去<br><img src="http://upload-images.jianshu.io/upload_images/4242627-2c526e318e4d1fba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>如图就可以了，点击右侧的add to jcenter，提交之后等待审核，审核过了就可以直接在项目中一句话依赖了<h1 id="Q-amp-W"><a href="#Q-amp-W" class="headerlink" title="Q&amp;W"></a>Q&amp;W</h1>Q:没通过审核怎么办<br>W:需要依赖库的那个module的build.gradle做如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">repositories &#123;</div><div class="line">    maven &#123;</div><div class="line">        url &apos;https://dl.bintray.com/组织名/repository名/&apos;//一个简单的测试方法就是放在浏览器访问一下这个url，看是否能看到你的代码</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>审核通过后，把这个去掉就好了<br>Q:执行命令之后报这个错HTTP/1.1 404 Not Found [message:Repo ‘xxx’ was not found]<br>W:Repo xxx找不到，说明这个xxx，也就是这个repository没有创建，或者在build.grald中配置的组织下没有这个repository，总之就是repository没有，自己排查吧</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>这个搞了几天，终于搞好了，有的东西可能理解不全面或者有误，欢迎指正。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/30/ViewGroup-dispatchTouchEvent总结——api23/" rel="next" title="ViewGroup#DispatchTouchEvent总结——api23">
+                <i class="fa fa-chevron-left"></i> ViewGroup#DispatchTouchEvent总结——api23
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/favicon.ico"
+               alt="X.Sation" />
+          <p class="site-author-name" itemprop="name">X.Sation</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kaikaixue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/3179322384/info" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要上传到JCenter"><span class="nav-number">1.</span> <span class="nav-text">为什么要上传到JCenter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注册bintray账号"><span class="nav-number">2.</span> <span class="nav-text">注册bintray账号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#这里有坑"><span class="nav-number">2.1.</span> <span class="nav-text">这里有坑</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建组织（Organizations）"><span class="nav-number">3.</span> <span class="nav-text">创建组织（Organizations）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在组织下创建Repository"><span class="nav-number">4.</span> <span class="nav-text">在组织下创建Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开android-studio设置"><span class="nav-number">5.</span> <span class="nav-text">打开android studio设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加到JCenter"><span class="nav-number">6.</span> <span class="nav-text">添加到JCenter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-amp-W"><span class="nav-number">7.</span> <span class="nav-text">Q&W</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">X.Sation</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

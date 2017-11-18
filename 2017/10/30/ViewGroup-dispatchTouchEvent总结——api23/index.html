@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/30/ViewGroup-dispatchTouchEvent总结——api23/index.html">
 <meta property="og:site_name" content="X.Sation&#39;s Blog">
 <meta property="og:description" content="重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，github地址,点击查看  前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。 事件已经分发到某个viewgroup了">
-<meta property="og:updated_time" content="2017-10-30T13:35:28.000Z">
+<meta property="og:updated_time" content="2017-10-30T15:28:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ViewGroup#DispatchTouchEvent总结——api23">
 <meta name="twitter:description" content="重新弄了一个项目，里面包含了几个版本的sdk源码，只有java代码，直接用idea导入就好，方便查看，github地址,点击查看  前段时间分析了android2.3的源码，今天分析一下android6.0的，变化挺大的，view#dispatchTouchEvent比较简单，就不记录了，viewgroup的比较复杂，为了防止以后忘了，在这里整理一下。 事件已经分发到某个viewgroup了">
@@ -374,7 +374,7 @@
 <li>mFirstTouchTarget为空，表示，不管是down还是其他事件，总之就是没有孩子要处理，因为上一步中没有给mFirstTouchTarget赋值。所以直接让自己处理，调用super.dispatchtouchevent();</li>
 <li>否则，该事件序列已经有孩子处理了，但是分两种情况<ul>
 <li>这个事件是down事件，孩子已经处理了，这个可以根据alreadyDispatchedToNewTouchTarget来决定，因为alreadyDispatchedToNewTouchTarget是局部变量，此时直接让handled为true即可</li>
-<li>这个事件是非down事件，该事件序列都是让mFirstTouchTarget处理，所以该事件也是，所以调用mFirstTouchTarget.dispatchtouchevent()，让孩子处理<ul>
+<li>这个事件是非down事件，该事件序列都是让mFirstTouchTarget处理，所以该事件也是，所以调用mFirstTouchTarget.dispatchtouchevent()，让孩子处理,(但是如果最开始的intercepted是true了，这里分发给孩子的时候action就是cancle，事件就被取消了，而且mFirstTouchTarget会一直被赋值，赋值为下一个child，直到最后，成为空，这样，就会让viewgroup处理事件了)<ul>
 <li>这里孩子可能会返回true或者false</li>
 <li>return true，孩子已经处理</li>
 <li>return false，表示孩子不愿意处理，但是不同于上面第三节中的孩子不处理，第三节中，事件是down，孩子不处理，就让该viewgroup处理，而这里是非down事件，孩子不处理，事件就消失了，return false，那么上一级viewgroup也是return false，一路向上，最后就到activity的dispatchTouchEvent了</li>
@@ -430,6 +430,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/18/AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了/" rel="prev" title="AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了">
+                AndroidStudio通过bintray上传library到JCenter——我遇到的坑都填了 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -492,7 +496,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
